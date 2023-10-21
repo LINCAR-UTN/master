@@ -1,4 +1,8 @@
-﻿using System;
+﻿using LINCAR_GESTION.EstadosOrdenAutoparte;
+using LINCAR_GESTION.ModelosProducto;
+using LINCAR_GESTION.OrdenesTrabajoAutoparte;
+using LINCAR_GESTION.Personas;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,5 +45,20 @@ namespace LINCAR_GESTION.OrdenesProduccion
         public int Boquillas { get; set; }
         public int PortaEstacas { get; set; }
         public float Voltaje { get; set; }
+
+        // Relación 1 a * Cliente
+        public Cliente Cliente { get; set; }
+
+        // Relacion * a * EstadoOrdenProduccion 
+        public ICollection<EstadoOrdenProduccion> Estados { get; set; }
+
+        // Relacion 1 a * ModeloProducto
+        public ModeloProducto ModeloProducto { get; set; }
+
+        // Relacion 0..1 a * OrdenTrabajoAutoparte
+        public ICollection<OrdenTrabajoAutoparte> OrdenesTrabajoAutoparte { get; set; }
+
+
+
     }
 }

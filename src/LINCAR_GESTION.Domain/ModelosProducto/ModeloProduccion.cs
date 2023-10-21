@@ -1,10 +1,12 @@
-﻿using System;
+﻿using LINCAR_GESTION.Autopartes;
+using LINCAR_GESTION.OrdenesProduccion;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LINCAR_GESTION.ModelosProductp
+namespace LINCAR_GESTION.ModelosProducto
 {
     public class ModeloProducto
     {
@@ -31,8 +33,11 @@ namespace LINCAR_GESTION.ModelosProductp
         public int PortaEstacas { get; set; }
         public float Voltaje {get; set; }
 
+        // Relacion 1 a * OrdenesProducción
+        public ICollection<OrdenProduccion> OrdenesProduccion { get; set; }
 
-
+        // Relación * a * ModeloProducto
+        public ICollection<Autoparte> Autopartes { get; set; } 
 
 
 

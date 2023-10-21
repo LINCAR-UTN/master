@@ -1,4 +1,8 @@
-﻿using System;
+﻿using LINCAR_GESTION.Atributos;
+using LINCAR_GESTION.ModelosProducto;
+using LINCAR_GESTION.OrdenesTrabajoAutoparte;
+using LINCAR_GESTION.SectoresProduccion;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +18,17 @@ namespace LINCAR_GESTION.Autopartes
         public string Nombre { get; set; }
         public bool Activa { get; set; }
         public List<string> Observaciones { get; set; }
+
+        // Relacion 1 a * OrdenTrabajoAutoparte
+        public ICollection<OrdenTrabajoAutoparte> OrdenesTrabajoAutopartes { get; set; }
+        
+        // Relación * a * SectorProduccion
+        public ICollection<SectorProduccion> SectoresProduccion { get; set; }
+        // Relación * a * ModeloProducto
+        public ICollection<ModeloProducto> ModelosProduccion { get; set; } 
+
+        // Relación 1 a * Atributo
+        public ICollection<Atributo> Atributos { get; set; }
 
     }
 }

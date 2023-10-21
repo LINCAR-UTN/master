@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using LINCAR_GESTION.Autopartes;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace LINCAR_GESTION.Atributos
     {
         public string Nombre { get; set; }
         public string Valor { get;set; } //string ya que puede ser un atrbituo de tipo color p ejemplo
+
+        public Autoparte Autoparte { get; set; }
 
     }
 }
