@@ -10,7 +10,7 @@ using Volo.Abp.Domain.Entities.Auditing;
 
 namespace LINCAR_GESTION.Atributos
 {
-    public class Atributo: Entity<Guid>
+    public class Atributo: Entity<int>
     {
         public string Nombre { get; set; }
         public string Valor { get;set; } //string ya que puede ser un atrbituo de tipo color p ejemplo

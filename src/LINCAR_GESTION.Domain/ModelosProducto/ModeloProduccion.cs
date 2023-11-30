@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp.Domain.Entities;
 
 namespace LINCAR_GESTION.ModelosProducto
 {
-    public class ModeloProducto
+    public class ModeloProducto : Entity<int>
     {
         public string CodigoModelo { get; set; }
         public float LargoTotalMts {  get; set; }

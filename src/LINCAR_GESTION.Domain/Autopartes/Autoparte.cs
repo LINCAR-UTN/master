@@ -12,7 +12,7 @@ using Volo.Abp.Domain.Entities.Auditing;
 
 namespace LINCAR_GESTION.Autopartes
 {
-    public abstract class Autoparte : Entity<Guid>
+    public abstract class Autoparte : Entity<int>
     {
         public int CodAutoparte { get; set; }
         public string Nombre { get; set; }

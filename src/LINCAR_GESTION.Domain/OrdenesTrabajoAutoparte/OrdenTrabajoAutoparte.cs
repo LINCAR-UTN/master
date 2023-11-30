@@ -10,7 +10,7 @@ using Volo.Abp.Domain.Entities;
 
 namespace LINCAR_GESTION.OrdenesTrabajoAutoparte
 {
-    public class OrdenTrabajoAutoparte : Entity<Guid>
+    public class OrdenTrabajoAutoparte : Entity<int>
     {
         public int NroOrden {  get; set; }
         public DateTime FechaHoraCreada {  get; set; }
