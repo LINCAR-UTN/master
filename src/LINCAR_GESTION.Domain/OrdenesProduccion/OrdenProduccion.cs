@@ -11,7 +11,7 @@ using Volo.Abp.Domain.Entities;
 
 namespace LINCAR_GESTION.OrdenesProduccion
 {
-    public class OrdenProduccion : Entity<Guid>
+    public class OrdenProduccion : Entity<int>
     {
         public int NroOrden { get; set; }
         public DateTime FechaEmision { get; set; }
@@ -26,7 +26,7 @@ namespace LINCAR_GESTION.OrdenesProduccion
         public string ColorCamion { get; set; }
         public float LargoChasisCamion { get; set; }
         public List<String> Observaciones { get; set; }
-      public float LargoTotalMts { get; set; }
+        public float LargoTotalMts { get; set; }
         public float LargoUtilMts { get; set; }
         public float AltoTotalMts { get; set; }
         public float AltoUtilMts { get; set; }
