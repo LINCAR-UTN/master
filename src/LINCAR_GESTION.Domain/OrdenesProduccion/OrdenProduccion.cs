@@ -1,5 +1,6 @@
 ﻿using LINCAR_GESTION.EstadosOrdenAutoparte;
 using LINCAR_GESTION.ModelosProducto;
+using LINCAR_GESTION.Observaciones;
 using LINCAR_GESTION.OrdenesTrabajoAutoparte;
 using LINCAR_GESTION.Personas;
 using System;
@@ -25,7 +26,6 @@ namespace LINCAR_GESTION.OrdenesProduccion
         public string DominioCamion {  get; set; }
         public string ColorCamion { get; set; }
         public float LargoChasisCamion { get; set; }
-        public List<String> Observaciones { get; set; }
         public float LargoTotalMts { get; set; }
         public float LargoUtilMts { get; set; }
         public float AltoTotalMts { get; set; }
@@ -58,7 +58,8 @@ namespace LINCAR_GESTION.OrdenesProduccion
         // Relacion 0..1 a * OrdenTrabajoAutoparte
         public ICollection<OrdenTrabajoAutoparte> OrdenesTrabajoAutoparte { get; set; }
 
-
+        // Relacion 1 a * Observaciones
+        public List<Observacion> Observaciones { get; set; }
 
     }
 }

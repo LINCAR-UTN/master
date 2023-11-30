@@ -1,7 +1,9 @@
-﻿using LINCAR_GESTION.Atributos;
+﻿using System;
+using LINCAR_GESTION.Atributos;
 using LINCAR_GESTION.Autopartes;
 using LINCAR_GESTION.Empleados;
 using LINCAR_GESTION.ModelosProducto;
+using LINCAR_GESTION.Observaciones;
 using LINCAR_GESTION.OrdenesProduccion;
 using LINCAR_GESTION.OrdenesTrabajoAutoparte;
 using LINCAR_GESTION.Personas;
@@ -128,6 +130,11 @@ public class LINCAR_GESTIONDbContext :
             b.HasMany(x => x.OrdenesTrabajoAutoparte)
                .WithOne(x => x.ordenProduccion); // 0..1 -> No isRequired()?
 
+            b.HasMany<Observacion>(x => x.Observaciones)
+                .WithOne()
+                .HasForeignKey("OrdenProduccionId")
+                .IsRequired(false);
+
         });
 
         builder.Entity<OrdenTrabajoAutoparte>(b =>
@@ -136,6 +143,12 @@ public class LINCAR_GESTIONDbContext :
             b.ConfigureByConvention();
 
             //Relación * a * EstadoOrdenTrabajoAutoparte definida por convención en EF Core
+
+
+            b.HasMany<Observacion>(x => x.Observaciones)
+                .WithOne()
+                .HasForeignKey("OrdenTrabajoAutoparteId")
+                .IsRequired(false);
 
         });
 
@@ -175,6 +188,10 @@ public class LINCAR_GESTIONDbContext :
             b.HasMany(x => x.Atributos)
                 .WithOne(x => x.Autoparte);
 
+            b.HasMany<Observacion>(x => x.Observaciones)
+                .WithOne()
+                .HasForeignKey("AutoparteId")
+                .IsRequired(false);
             // Relación * a * SectorDeProduccion definida por convención de EF Core
             // Relación * a * ModeloProducto definida por convención de EF Core
         });
@@ -184,7 +201,12 @@ public class LINCAR_GESTIONDbContext :
             b.ToTable("Atributo");
             b.ConfigureByConvention();
 
+        });
 
+        builder.Entity<Observacion>(b =>
+        {
+            b.ToTable("Observaciones");
+            b.ConfigureByConvention();
         });
 
 

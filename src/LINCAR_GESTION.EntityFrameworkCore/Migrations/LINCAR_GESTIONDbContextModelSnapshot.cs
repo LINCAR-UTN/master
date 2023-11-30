@@ -19,10 +19,508 @@ namespace LINCARGESTION.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("_Abp_DatabaseProvider", EfCoreDatabaseProvider.SqlServer)
-                .HasAnnotation("ProductVersion", "7.0.10")
+                .HasAnnotation("ProductVersion", "7.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("AutoparteModeloProducto", b =>
+                {
+                    b.Property<int>("AutopartesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ModelosProduccionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AutopartesId", "ModelosProduccionId");
+
+                    b.HasIndex("ModelosProduccionId");
+
+                    b.ToTable("AutoparteModeloProducto");
+                });
+
+            modelBuilder.Entity("AutoparteSectorProduccion", b =>
+                {
+                    b.Property<int>("AutopartesId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("SectoresProduccionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("AutopartesId", "SectoresProduccionId");
+
+                    b.HasIndex("SectoresProduccionId");
+
+                    b.ToTable("AutoparteSectorProduccion");
+                });
+
+            modelBuilder.Entity("EstadoOrdenProduccionOrdenProduccion", b =>
+                {
+                    b.Property<int>("EstadosId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrdenesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("EstadosId", "OrdenesId");
+
+                    b.HasIndex("OrdenesId");
+
+                    b.ToTable("EstadoOrdenProduccionOrdenProduccion");
+                });
+
+            modelBuilder.Entity("LINCAR_GESTION.Atributos.Atributo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AutoparteId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Valor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AutoparteId");
+
+                    b.ToTable("Atributo", (string)null);
+                });
+
+            modelBuilder.Entity("LINCAR_GESTION.Autopartes.Autoparte", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Activa")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("CodAutoparte")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Autoparte", (string)null);
+                });
+
+            modelBuilder.Entity("LINCAR_GESTION.Empleados.Empleado", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Apellido")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DNI")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FechaHoraAlta")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaHoraModificado")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NumeroTelefono")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("SectorProduccionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("activo")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SectorProduccionId");
+
+                    b.ToTable("Empleado", (string)null);
+                });
+
+            modelBuilder.Entity("LINCAR_GESTION.EstadosOrdenAutoparte.EstadoOrdenProduccion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("FechaHoraHasta")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Nombre")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EstadoOrdenProduccion");
+                });
+
+            modelBuilder.Entity("LINCAR_GESTION.ModelosProducto.ModeloProducto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<float>("AltoTotalMts")
+                        .HasColumnType("real");
+
+                    b.Property<float>("AltoUtilMts")
+                        .HasColumnType("real");
+
+                    b.Property<float>("AnchoTotalMts")
+                        .HasColumnType("real");
+
+                    b.Property<float>("AnchoUtilMts")
+                        .HasColumnType("real");
+
+                    b.Property<int>("Arcos")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Boquillas")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CodigoModelo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ColorInferior")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ColorZocalo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Escalera")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("EsperorPisoMms")
+                        .HasColumnType("real");
+
+                    b.Property<float>("LargoTotalMts")
+                        .HasColumnType("real");
+
+                    b.Property<float>("LargoUtilMts")
+                        .HasColumnType("real");
+
+                    b.Property<int>("Malacates")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PortaEstacas")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PuertaLateral")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PuertaTrasera")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TipoPiso")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TipoUnidad")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("Voltaje")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ModeloProducto", (string)null);
+                });
+
+            modelBuilder.Entity("LINCAR_GESTION.Observaciones.Observacion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("AutoparteId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("OrdenProduccionId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("OrdenTrabajoAutoparteId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Texto")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AutoparteId");
+
+                    b.HasIndex("OrdenProduccionId");
+
+                    b.HasIndex("OrdenTrabajoAutoparteId");
+
+                    b.ToTable("Observaciones", (string)null);
+                });
+
+            modelBuilder.Entity("LINCAR_GESTION.OrdenesProduccion.OrdenProduccion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<float>("AltoTotalMts")
+                        .HasColumnType("real");
+
+                    b.Property<float>("AltoUtilMts")
+                        .HasColumnType("real");
+
+                    b.Property<float>("AnchoChasisCamion")
+                        .HasColumnType("real");
+
+                    b.Property<float>("AnchoTotalMts")
+                        .HasColumnType("real");
+
+                    b.Property<float>("AnchoUtilMts")
+                        .HasColumnType("real");
+
+                    b.Property<int>("Arcos")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Boquillas")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CajaVelocidadCamion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("CentroRuiedaCamion")
+                        .HasColumnType("real");
+
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ColorCamion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ColorInferior")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ColorZocalo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DescripcionCamion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DominioCamion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Escalera")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("EsperorPisoMms")
+                        .HasColumnType("real");
+
+                    b.Property<DateTime>("FechaEmision")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaEntrega")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaEntregaEfectiva")
+                        .HasColumnType("datetime2");
+
+                    b.Property<float>("LargoChasisCamion")
+                        .HasColumnType("real");
+
+                    b.Property<float>("LargoTotalMts")
+                        .HasColumnType("real");
+
+                    b.Property<float>("LargoUtilMts")
+                        .HasColumnType("real");
+
+                    b.Property<int>("Malacates")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ModeloCamion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ModeloProductoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NroOrden")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PortaEstacas")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PuertaLateral")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PuertaTrasera")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TipoPiso")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TipoUnidad")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("Voltaje")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClienteId");
+
+                    b.HasIndex("ModeloProductoId");
+
+                    b.ToTable("OrdenProduccion", (string)null);
+                });
+
+            modelBuilder.Entity("LINCAR_GESTION.OrdenesTrabajoAutoparte.OrdenTrabajoAutoparte", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AutoparteId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmpleadoId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FechaHoraCreada")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("NroOrden")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ordenProduccionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AutoparteId");
+
+                    b.HasIndex("EmpleadoId");
+
+                    b.HasIndex("ordenProduccionId");
+
+                    b.ToTable("OrdenTrabajoAutoparte", (string)null);
+                });
+
+            modelBuilder.Entity("LINCAR_GESTION.Personas.Cliente", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Apellido")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DNI")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Direccion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("FechaHoraAlta")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaHoraModificado")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NumeroTelefono")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cliente", (string)null);
+                });
+
+            modelBuilder.Entity("LINCAR_GESTION.SectoresProduccion.SectorProduccion", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("EncargadoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NroSector")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EncargadoId");
+
+                    b.ToTable("SectorProduccion", (string)null);
+                });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>
                 {
@@ -1753,6 +2251,143 @@ namespace LINCARGESTION.Migrations
                     b.ToTable("AbpTenantConnectionStrings", (string)null);
                 });
 
+            modelBuilder.Entity("AutoparteModeloProducto", b =>
+                {
+                    b.HasOne("LINCAR_GESTION.Autopartes.Autoparte", null)
+                        .WithMany()
+                        .HasForeignKey("AutopartesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LINCAR_GESTION.ModelosProducto.ModeloProducto", null)
+                        .WithMany()
+                        .HasForeignKey("ModelosProduccionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AutoparteSectorProduccion", b =>
+                {
+                    b.HasOne("LINCAR_GESTION.Autopartes.Autoparte", null)
+                        .WithMany()
+                        .HasForeignKey("AutopartesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LINCAR_GESTION.SectoresProduccion.SectorProduccion", null)
+                        .WithMany()
+                        .HasForeignKey("SectoresProduccionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EstadoOrdenProduccionOrdenProduccion", b =>
+                {
+                    b.HasOne("LINCAR_GESTION.EstadosOrdenAutoparte.EstadoOrdenProduccion", null)
+                        .WithMany()
+                        .HasForeignKey("EstadosId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LINCAR_GESTION.OrdenesProduccion.OrdenProduccion", null)
+                        .WithMany()
+                        .HasForeignKey("OrdenesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LINCAR_GESTION.Atributos.Atributo", b =>
+                {
+                    b.HasOne("LINCAR_GESTION.Autopartes.Autoparte", "Autoparte")
+                        .WithMany("Atributos")
+                        .HasForeignKey("AutoparteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Autoparte");
+                });
+
+            modelBuilder.Entity("LINCAR_GESTION.Empleados.Empleado", b =>
+                {
+                    b.HasOne("LINCAR_GESTION.SectoresProduccion.SectorProduccion", "SectorProduccion")
+                        .WithMany("Empleados")
+                        .HasForeignKey("SectorProduccionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SectorProduccion");
+                });
+
+            modelBuilder.Entity("LINCAR_GESTION.Observaciones.Observacion", b =>
+                {
+                    b.HasOne("LINCAR_GESTION.Autopartes.Autoparte", null)
+                        .WithMany("Observaciones")
+                        .HasForeignKey("AutoparteId");
+
+                    b.HasOne("LINCAR_GESTION.OrdenesProduccion.OrdenProduccion", null)
+                        .WithMany("Observaciones")
+                        .HasForeignKey("OrdenProduccionId");
+
+                    b.HasOne("LINCAR_GESTION.OrdenesTrabajoAutoparte.OrdenTrabajoAutoparte", null)
+                        .WithMany("Observaciones")
+                        .HasForeignKey("OrdenTrabajoAutoparteId");
+                });
+
+            modelBuilder.Entity("LINCAR_GESTION.OrdenesProduccion.OrdenProduccion", b =>
+                {
+                    b.HasOne("LINCAR_GESTION.Personas.Cliente", "Cliente")
+                        .WithMany("OrdenesProduccion")
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LINCAR_GESTION.ModelosProducto.ModeloProducto", "ModeloProducto")
+                        .WithMany("OrdenesProduccion")
+                        .HasForeignKey("ModeloProductoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
+
+                    b.Navigation("ModeloProducto");
+                });
+
+            modelBuilder.Entity("LINCAR_GESTION.OrdenesTrabajoAutoparte.OrdenTrabajoAutoparte", b =>
+                {
+                    b.HasOne("LINCAR_GESTION.Autopartes.Autoparte", "Autoparte")
+                        .WithMany("OrdenesTrabajoAutopartes")
+                        .HasForeignKey("AutoparteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LINCAR_GESTION.Empleados.Empleado", "Empleado")
+                        .WithMany("OrdenesTrabajoAutoparte")
+                        .HasForeignKey("EmpleadoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LINCAR_GESTION.OrdenesProduccion.OrdenProduccion", "ordenProduccion")
+                        .WithMany("OrdenesTrabajoAutoparte")
+                        .HasForeignKey("ordenProduccionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Autoparte");
+
+                    b.Navigation("Empleado");
+
+                    b.Navigation("ordenProduccion");
+                });
+
+            modelBuilder.Entity("LINCAR_GESTION.SectoresProduccion.SectorProduccion", b =>
+                {
+                    b.HasOne("LINCAR_GESTION.Empleados.Empleado", "Encargado")
+                        .WithMany("SectoresProduccionACargo")
+                        .HasForeignKey("EncargadoId");
+
+                    b.Navigation("Encargado");
+                });
+
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLogAction", b =>
                 {
                     b.HasOne("Volo.Abp.AuditLogging.AuditLog", null)
@@ -1893,6 +2528,49 @@ namespace LINCARGESTION.Migrations
                         .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("LINCAR_GESTION.Autopartes.Autoparte", b =>
+                {
+                    b.Navigation("Atributos");
+
+                    b.Navigation("Observaciones");
+
+                    b.Navigation("OrdenesTrabajoAutopartes");
+                });
+
+            modelBuilder.Entity("LINCAR_GESTION.Empleados.Empleado", b =>
+                {
+                    b.Navigation("OrdenesTrabajoAutoparte");
+
+                    b.Navigation("SectoresProduccionACargo");
+                });
+
+            modelBuilder.Entity("LINCAR_GESTION.ModelosProducto.ModeloProducto", b =>
+                {
+                    b.Navigation("OrdenesProduccion");
+                });
+
+            modelBuilder.Entity("LINCAR_GESTION.OrdenesProduccion.OrdenProduccion", b =>
+                {
+                    b.Navigation("Observaciones");
+
+                    b.Navigation("OrdenesTrabajoAutoparte");
+                });
+
+            modelBuilder.Entity("LINCAR_GESTION.OrdenesTrabajoAutoparte.OrdenTrabajoAutoparte", b =>
+                {
+                    b.Navigation("Observaciones");
+                });
+
+            modelBuilder.Entity("LINCAR_GESTION.Personas.Cliente", b =>
+                {
+                    b.Navigation("OrdenesProduccion");
+                });
+
+            modelBuilder.Entity("LINCAR_GESTION.SectoresProduccion.SectorProduccion", b =>
+                {
+                    b.Navigation("Empleados");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>

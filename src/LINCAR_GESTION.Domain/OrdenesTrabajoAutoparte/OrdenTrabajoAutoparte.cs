@@ -1,5 +1,6 @@
 ﻿using LINCAR_GESTION.Autopartes;
 using LINCAR_GESTION.Empleados;
+using LINCAR_GESTION.Observaciones;
 using LINCAR_GESTION.OrdenesProduccion;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,6 @@ namespace LINCAR_GESTION.OrdenesTrabajoAutoparte
     {
         public int NroOrden {  get; set; }
         public DateTime FechaHoraCreada {  get; set; }
-        public List<string> Observaciones { get; set; }
         public int Cantidad {  get; set; }  
 
         // Relación 0..1 a * OrdenProduccion
@@ -26,10 +26,11 @@ namespace LINCAR_GESTION.OrdenesTrabajoAutoparte
         // Relación 0..1 a * Empleado
         public Empleado Empleado { get; set; }
 
-        //Relación 1 a * Autoparte
+        // Relación 1 a * Autoparte
         public Autoparte Autoparte { get; set; }
 
-
+        // Relacion 1 a * observaciones
+        public List<Observacion> Observaciones { get; set; }
 
     }
 }
