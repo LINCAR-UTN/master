@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LINCAR_GESTION.OrdenesProduccion;
+using LINCAR_GESTION.Personas;
 
 namespace LINCAR_GESTION;
 
@@ -15,6 +16,8 @@ public class LINCAR_GESTIONApplicationAutoMapperProfile : Profile
         CreateMap<OrdenProduccionDto, OrdenProduccion>().ReverseMap();
         CreateMap<CreateUpdateOrdenProduccionDto, OrdenProduccion>();
 
+        CreateMap<ClienteDto, Cliente>().ReverseMap();
+        CreateMap<CreateUpdateClienteDto, Cliente>();
 
 
     }

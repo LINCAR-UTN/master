@@ -1,12 +1,10 @@
-﻿using LINCAR_GESTION.OrdenesProduccion;
-using System;
-using System.Collections.Generic;
-using Volo.Abp.Domain.Entities;
+﻿using System;
 
 namespace LINCAR_GESTION.Personas
 {
-    public class Cliente : Entity<int>
+    public class CreateUpdateClienteDto
     {
+        public int? Id { get; set; }
         // atributos de Persona
         public string Nombre { get; set; }
         public string Apellido { get; set; }
@@ -17,9 +15,5 @@ namespace LINCAR_GESTION.Personas
 
         // atributos de Cliente
         public string Direccion { get; set; }
-
-        // Relación 1 a * Ordenes de Producción
-        public ICollection<OrdenProduccion> OrdenesProduccion { get; set; }
-
     }
 }
