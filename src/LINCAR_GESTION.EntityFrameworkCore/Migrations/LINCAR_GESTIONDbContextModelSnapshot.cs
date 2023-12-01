@@ -9,10 +9,10 @@ using Volo.Abp.EntityFrameworkCore;
 
 #nullable disable
 
-namespace LINCARGESTION.Migrations
+namespace LINCAR_GESTION.Migrations
 {
     [DbContext(typeof(LINCAR_GESTIONDbContext))]
-    partial class LINCARGESTIONDbContextModelSnapshot : ModelSnapshot
+    partial class LINCAR_GESTIONDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -345,16 +345,16 @@ namespace LINCARGESTION.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("EsperorPisoMms")
+                    b.Property<float>("EspesorPisoMms")
                         .HasColumnType("real");
 
                     b.Property<DateTime>("FechaEmision")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("FechaEntrega")
+                    b.Property<DateTime?>("FechaEntrega")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("FechaEntregaEfectiva")
+                    b.Property<DateTime?>("FechaEntregaEfectiva")
                         .HasColumnType("datetime2");
 
                     b.Property<float>("LargoChasisCamion")
@@ -469,7 +469,7 @@ namespace LINCARGESTION.Migrations
                     b.Property<DateTime>("FechaHoraAlta")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("FechaHoraModificado")
+                    b.Property<DateTime?>("FechaHoraModificado")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Nombre")

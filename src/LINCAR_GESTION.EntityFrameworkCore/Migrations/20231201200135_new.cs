@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace LINCARGESTION.Migrations
+namespace LINCAR_GESTION.Migrations
 {
     /// <inheritdoc />
     public partial class @new : Migration
@@ -416,7 +416,7 @@ namespace LINCARGESTION.Migrations
                     NumeroTelefono = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DNI = table.Column<int>(type: "int", nullable: false),
                     FechaHoraAlta = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FechaHoraModificado = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaHoraModificado = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Direccion = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -801,8 +801,8 @@ namespace LINCARGESTION.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NroOrden = table.Column<int>(type: "int", nullable: false),
                     FechaEmision = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FechaEntrega = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FechaEntregaEfectiva = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaEntrega = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    FechaEntregaEfectiva = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DescripcionCamion = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CentroRuedaCamion = table.Column<float>(type: "real", nullable: false),
                     ModeloCamion = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -817,7 +817,7 @@ namespace LINCARGESTION.Migrations
                     AltoUtilMts = table.Column<float>(type: "real", nullable: false),
                     AnchoTotalMts = table.Column<float>(type: "real", nullable: false),
                     AnchoUtilMts = table.Column<float>(type: "real", nullable: false),
-                    EsperorPisoMms = table.Column<float>(type: "real", nullable: false),
+                    EspesorPisoMms = table.Column<float>(type: "real", nullable: false),
                     TipoUnidad = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TipoPiso = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ColorZocalo = table.Column<string>(type: "nvarchar(max)", nullable: false),

@@ -23,7 +23,7 @@ namespace LINCAR_GESTION.ModelosProducto
         }
 
         //[Fact]
-        //public async Task Should_Get_All_OrdenProduccions()
+        //public async Task Should_Get_All_OrdenesProduccion()
         //{
         //    //Act
         //    var ordenProduccions = await _ordenProduccionAppService.GetOrdenesProduccionAsync();
@@ -33,30 +33,32 @@ namespace LINCAR_GESTION.ModelosProducto
         //    ordenProduccions.Count.ShouldBeGreaterThan(1);
         //}
 
-        //[Fact]
-        //public async Task Should_Create_OrdenProduccion()
-        //{
-        //    //Arrange            
-        //    var input = new CreateUpdateOrdenProduccionDto
-        //    {
+        [Fact]
+        public async Task Should_Create_OrdenProduccion()
+        {
+            //Arrange            
+            var input = new CreateUpdateOrdenProduccionDto
+            {
+                NroOrden = 1,
+                ClienteId = 1,
+                ModeloProductoId = 1
+            };
 
-        //    };
+            //Act
+            var newOrdenProduccion = await _ordenProduccionAppService.CreateUpdateOrdenProduccionAsync(input);
 
-        //    //Act
-        //    var newOrdenProduccion = await _ordenProduccionAppService.CreateUpdateOrdenProduccionAsync(input);
-
-        //    //Assert
-        //    // Se verifican los datos devueltos por el servicio
-        //    newOrdenProduccion.ShouldNotBeNull();
-        //    newOrdenProduccion.Id.ShouldBePositive();
-        //    // se verifican los datos persistidos por el servicio
-        //    using (var uow = _unitOfWorkManager.Begin())
-        //    {
-        //        var dbContext = await _dbContextProvider.GetDbContextAsync();
-        //        dbContext.ModelosProducto.FirstOrDefault(t => t.Id == newOrdenProduccion.Id).ShouldNotBeNull();
-        //        dbContext.ModelosProducto.FirstOrDefault(t => t.Id == newOrdenProduccion.Id).CodigoModelo.ShouldBe(input.CodigoModelo);
-        //    }
-        //}
+            //Assert
+            // Se verifican los datos devueltos por el servicio
+            newOrdenProduccion.ShouldNotBeNull();
+            newOrdenProduccion.Id.ShouldBePositive();
+            // se verifican los datos persistidos por el servicio
+            using (var uow = _unitOfWorkManager.Begin())
+            {
+                var dbContext = await _dbContextProvider.GetDbContextAsync();
+                dbContext.OrdenesProduccion.FirstOrDefault(t => t.Id == newOrdenProduccion.Id).ShouldNotBeNull();
+                dbContext.OrdenesProduccion.FirstOrDefault(t => t.Id == newOrdenProduccion.Id).NroOrden.ShouldBe(input.NroOrden);
+            }
+        }
 
         //[Fact]
         //public async Task Should_Update_OrdenProduccion()

@@ -8,18 +8,18 @@ namespace LINCAR_GESTION.Personas
     public class Cliente : Entity<int>
     {
         // atributos de Persona
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public string NumeroTelefono { get; set; }
-        public int DNI { get; set; }
-        public DateTime FechaHoraAlta { get; set; }
-        public DateTime FechaHoraModificado { get; set; }
+        public string Nombre { get; set; } = "";
+        public string Apellido { get; set; } = "";
+        public string NumeroTelefono { get; set; } = "";
+        public int DNI { get; set; } = 0;
+        public DateTime FechaHoraAlta { get; set; } = DateTime.Now;
+        public DateTime? FechaHoraModificado { get; set; }
 
         // atributos de Cliente
-        public string Direccion { get; set; }
+        public string Direccion { get; set; } = "";
 
         // Relación 1 a * Ordenes de Producción
-        public ICollection<OrdenProduccion> OrdenesProduccion { get; set; }
+        public ICollection<OrdenProduccion>? OrdenesProduccion { get; set; }
 
     }
 }
