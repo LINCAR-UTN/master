@@ -13,8 +13,8 @@ using Volo.Abp.EntityFrameworkCore;
 namespace LINCARGESTION.Migrations
 {
     [DbContext(typeof(LINCAR_GESTIONDbContext))]
-    [Migration("20231201041808_initial")]
-    partial class initial
+    [Migration("20231201153911_new")]
+    partial class @new
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -214,7 +214,7 @@ namespace LINCARGESTION.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("EsperorPisoMms")
+                    b.Property<float>("EspesorPisoMms")
                         .HasColumnType("real");
 
                     b.Property<float>("LargoTotalMts")
@@ -318,7 +318,7 @@ namespace LINCARGESTION.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("CentroRuiedaCamion")
+                    b.Property<float>("CentroRuedaCamion")
                         .HasColumnType("real");
 
                     b.Property<int>("ClienteId")
@@ -491,7 +491,6 @@ namespace LINCARGESTION.Migrations
             modelBuilder.Entity("LINCAR_GESTION.SectoresProduccion.SectorProduccion", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Descripcion")

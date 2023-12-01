@@ -35,7 +35,7 @@ namespace LINCAR_GESTION.OrdenesProduccion
             }
             else
             {
-                ordenProduccion = await _ordenProduccionRepository.GetAsync(input.Id.Value, includeDetails: true);
+                // ordenProduccion = await _ordenProduccionRepository.GetAsync(input.Id.Value, includeDetails: true);
                 await _ordenProduccionRepository.UpdateAsync(ordenProduccion, autoSave: true);
             }
 

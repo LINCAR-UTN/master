@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LINCARGESTION.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class @new : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -437,7 +437,7 @@ namespace LINCARGESTION.Migrations
                     AltoUtilMts = table.Column<float>(type: "real", nullable: false),
                     AnchoTotalMts = table.Column<float>(type: "real", nullable: false),
                     AnchoUtilMts = table.Column<float>(type: "real", nullable: false),
-                    EsperorPisoMms = table.Column<float>(type: "real", nullable: false),
+                    EspesorPisoMms = table.Column<float>(type: "real", nullable: false),
                     TipoUnidad = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TipoPiso = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ColorZocalo = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -804,7 +804,7 @@ namespace LINCARGESTION.Migrations
                     FechaEntrega = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaEntregaEfectiva = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DescripcionCamion = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CentroRuiedaCamion = table.Column<float>(type: "real", nullable: false),
+                    CentroRuedaCamion = table.Column<float>(type: "real", nullable: false),
                     ModeloCamion = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CajaVelocidadCamion = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AnchoChasisCamion = table.Column<float>(type: "real", nullable: false),

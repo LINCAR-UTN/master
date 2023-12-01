@@ -21,7 +21,7 @@ namespace LINCAR_GESTION.Personas
             }
             else
             {
-                cliente = await _clienteRepository.GetAsync(input.Id.Value, includeDetails: true);
+                // cliente = await _clienteRepository.GetAsync(input.Id.Value, includeDetails: true);
                 await _clienteRepository.UpdateAsync(cliente, autoSave: true);
             }
 

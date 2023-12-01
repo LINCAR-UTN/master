@@ -211,7 +211,7 @@ namespace LINCARGESTION.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("EsperorPisoMms")
+                    b.Property<float>("EspesorPisoMms")
                         .HasColumnType("real");
 
                     b.Property<float>("LargoTotalMts")
@@ -315,7 +315,7 @@ namespace LINCARGESTION.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("CentroRuiedaCamion")
+                    b.Property<float>("CentroRuedaCamion")
                         .HasColumnType("real");
 
                     b.Property<int>("ClienteId")
@@ -488,7 +488,6 @@ namespace LINCARGESTION.Migrations
             modelBuilder.Entity("LINCAR_GESTION.SectoresProduccion.SectorProduccion", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Descripcion")
