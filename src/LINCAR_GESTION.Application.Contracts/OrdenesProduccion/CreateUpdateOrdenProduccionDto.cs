@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using LINCAR_GESTION.Observaciones;
 
@@ -8,6 +9,7 @@ namespace LINCAR_GESTION.OrdenesProduccion
     public class CreateUpdateOrdenProduccionDto
     {
         public int? Id { get; set; }
+        [Required]
         public int NroOrden { get; set; }
         public DateTime FechaEmision { get; set; }
         public DateTime FechaEntrega { get; set; }
