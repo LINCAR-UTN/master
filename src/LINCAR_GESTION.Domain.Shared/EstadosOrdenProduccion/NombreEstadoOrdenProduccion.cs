@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LINCAR_GESTION.EstadosOrdenAutoparte;
+namespace LINCAR_GESTION.EstadosOrdenProduccion;
 
-public enum NombreEstadoOrdenAutoparte
+public enum NombreEstadoOrdenProduccion
 {
-CREADA,
-TERMINADA,
-ENTREGADA
+    CREADA,
+    TERMINADA,
+    ENTREGADA
 }

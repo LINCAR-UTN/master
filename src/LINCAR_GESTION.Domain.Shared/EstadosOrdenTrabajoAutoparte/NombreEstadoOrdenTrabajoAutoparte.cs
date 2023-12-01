@@ -7,6 +7,6 @@ namespace LINCAR_GESTION.EstadosOrdenTrabajoAutoparte;
 public enum NombreEstadoOrdenAutoparte
 {
     CREADA,
-    TERMINADA,
-    ENTREGADA
+    ASIGNADA,
+    TERMINADA
 }

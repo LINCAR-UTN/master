@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp.Domain.Entities;
 
 namespace LINCAR_GESTION.ModelosProducto
 {
-    public class ModeloProducto
+    public class ModeloProducto : Entity<int>
     {
         public string CodigoModelo { get; set; }
         public float LargoTotalMts {  get; set; }
@@ -34,7 +35,7 @@ namespace LINCAR_GESTION.ModelosProducto
         public float Voltaje {get; set; }
 
         // Relacion 1 a * OrdenesProducción
-        public ICollection<OrdenProduccion> OrdenesProduccion { get; set; }
+        public ICollection<OrdenProduccion> OrdenesProduccion { get; set; } // creo que esta navigabilidad no es necesaria
 
         // Relación * a * ModeloProducto
         public ICollection<Autoparte> Autopartes { get; set; } 

@@ -1,5 +1,6 @@
 ﻿using LINCAR_GESTION.Atributos;
 using LINCAR_GESTION.ModelosProducto;
+using LINCAR_GESTION.Observaciones;
 using LINCAR_GESTION.OrdenesTrabajoAutoparte;
 using LINCAR_GESTION.SectoresProduccion;
 using System;
@@ -12,12 +13,14 @@ using Volo.Abp.Domain.Entities.Auditing;
 
 namespace LINCAR_GESTION.Autopartes
 {
-    public abstract class Autoparte : Entity<Guid>
+    public class Autoparte : Entity<int>
     {
         public int CodAutoparte { get; set; }
         public string Nombre { get; set; }
         public bool Activa { get; set; }
-        public List<string> Observaciones { get; set; }
+        
+        // Relacion 1 a * Observaciones
+        public ICollection<Observacion> Observaciones { get; set; }
 
         // Relacion 1 a * OrdenTrabajoAutoparte
         public ICollection<OrdenTrabajoAutoparte> OrdenesTrabajoAutopartes { get; set; }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LINCARGESTION.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -391,6 +391,72 @@ namespace LINCARGESTION.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Autoparte",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CodAutoparte = table.Column<int>(type: "int", nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Activa = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Autoparte", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cliente",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Apellido = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NumeroTelefono = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DNI = table.Column<int>(type: "int", nullable: false),
+                    FechaHoraAlta = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaHoraModificado = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Direccion = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cliente", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ModeloProducto",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CodigoModelo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LargoTotalMts = table.Column<float>(type: "real", nullable: false),
+                    LargoUtilMts = table.Column<float>(type: "real", nullable: false),
+                    AltoTotalMts = table.Column<float>(type: "real", nullable: false),
+                    AltoUtilMts = table.Column<float>(type: "real", nullable: false),
+                    AnchoTotalMts = table.Column<float>(type: "real", nullable: false),
+                    AnchoUtilMts = table.Column<float>(type: "real", nullable: false),
+                    EsperorPisoMms = table.Column<float>(type: "real", nullable: false),
+                    TipoUnidad = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TipoPiso = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ColorZocalo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ColorInferior = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PuertaLateral = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PuertaTrasera = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Malacates = table.Column<int>(type: "int", nullable: false),
+                    Arcos = table.Column<int>(type: "int", nullable: false),
+                    Escalera = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Boquillas = table.Column<int>(type: "int", nullable: false),
+                    PortaEstacas = table.Column<int>(type: "int", nullable: false),
+                    Voltaje = table.Column<float>(type: "real", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ModeloProducto", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OpenIddictApplications",
                 columns: table => new
                 {
@@ -683,6 +749,108 @@ namespace LINCARGESTION.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Atributo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Valor = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AutoparteId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Atributo", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Atributo_Autoparte_AutoparteId",
+                        column: x => x.AutoparteId,
+                        principalTable: "Autoparte",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AutoparteModeloProducto",
+                columns: table => new
+                {
+                    AutopartesId = table.Column<int>(type: "int", nullable: false),
+                    ModelosProduccionId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AutoparteModeloProducto", x => new { x.AutopartesId, x.ModelosProduccionId });
+                    table.ForeignKey(
+                        name: "FK_AutoparteModeloProducto_Autoparte_AutopartesId",
+                        column: x => x.AutopartesId,
+                        principalTable: "Autoparte",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AutoparteModeloProducto_ModeloProducto_ModelosProduccionId",
+                        column: x => x.ModelosProduccionId,
+                        principalTable: "ModeloProducto",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrdenProduccion",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NroOrden = table.Column<int>(type: "int", nullable: false),
+                    FechaEmision = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaEntrega = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaEntregaEfectiva = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DescripcionCamion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CentroRuiedaCamion = table.Column<float>(type: "real", nullable: false),
+                    ModeloCamion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CajaVelocidadCamion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AnchoChasisCamion = table.Column<float>(type: "real", nullable: false),
+                    DominioCamion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ColorCamion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LargoChasisCamion = table.Column<float>(type: "real", nullable: false),
+                    LargoTotalMts = table.Column<float>(type: "real", nullable: false),
+                    LargoUtilMts = table.Column<float>(type: "real", nullable: false),
+                    AltoTotalMts = table.Column<float>(type: "real", nullable: false),
+                    AltoUtilMts = table.Column<float>(type: "real", nullable: false),
+                    AnchoTotalMts = table.Column<float>(type: "real", nullable: false),
+                    AnchoUtilMts = table.Column<float>(type: "real", nullable: false),
+                    EsperorPisoMms = table.Column<float>(type: "real", nullable: false),
+                    TipoUnidad = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TipoPiso = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ColorZocalo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ColorInferior = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PuertaLateral = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PuertaTrasera = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Malacates = table.Column<int>(type: "int", nullable: false),
+                    Arcos = table.Column<int>(type: "int", nullable: false),
+                    Escalera = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Boquillas = table.Column<int>(type: "int", nullable: false),
+                    PortaEstacas = table.Column<int>(type: "int", nullable: false),
+                    Voltaje = table.Column<float>(type: "real", nullable: false),
+                    ClienteId = table.Column<int>(type: "int", nullable: false),
+                    ModeloProductoId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrdenProduccion", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrdenProduccion_Cliente_ClienteId",
+                        column: x => x.ClienteId,
+                        principalTable: "Cliente",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrdenProduccion_ModeloProducto_ModeloProductoId",
+                        column: x => x.ModeloProductoId,
+                        principalTable: "ModeloProducto",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OpenIddictAuthorizations",
                 columns: table => new
                 {
@@ -738,6 +906,27 @@ namespace LINCARGESTION.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "EstadoOrdenProduccion",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<int>(type: "int", nullable: false),
+                    FechaHoraHasta = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    OrdenId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EstadoOrdenProduccion", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EstadoOrdenProduccion_OrdenProduccion_OrdenId",
+                        column: x => x.OrdenId,
+                        principalTable: "OrdenProduccion",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OpenIddictTokens",
                 columns: table => new
                 {
@@ -775,6 +964,131 @@ namespace LINCARGESTION.Migrations
                         name: "FK_OpenIddictTokens_OpenIddictAuthorizations_AuthorizationId",
                         column: x => x.AuthorizationId,
                         principalTable: "OpenIddictAuthorizations",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AutoparteSectorProduccion",
+                columns: table => new
+                {
+                    AutopartesId = table.Column<int>(type: "int", nullable: false),
+                    SectoresProduccionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AutoparteSectorProduccion", x => new { x.AutopartesId, x.SectoresProduccionId });
+                    table.ForeignKey(
+                        name: "FK_AutoparteSectorProduccion_Autoparte_AutopartesId",
+                        column: x => x.AutopartesId,
+                        principalTable: "Autoparte",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Empleado",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Apellido = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NumeroTelefono = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DNI = table.Column<int>(type: "int", nullable: false),
+                    FechaHoraAlta = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaHoraModificado = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    activo = table.Column<bool>(type: "bit", nullable: false),
+                    SectorProduccionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Empleado", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrdenTrabajoAutoparte",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NroOrden = table.Column<int>(type: "int", nullable: false),
+                    FechaHoraCreada = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Cantidad = table.Column<int>(type: "int", nullable: false),
+                    ordenProduccionId = table.Column<int>(type: "int", nullable: false),
+                    EmpleadoId = table.Column<int>(type: "int", nullable: false),
+                    AutoparteId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrdenTrabajoAutoparte", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrdenTrabajoAutoparte_Autoparte_AutoparteId",
+                        column: x => x.AutoparteId,
+                        principalTable: "Autoparte",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrdenTrabajoAutoparte_Empleado_EmpleadoId",
+                        column: x => x.EmpleadoId,
+                        principalTable: "Empleado",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrdenTrabajoAutoparte_OrdenProduccion_ordenProduccionId",
+                        column: x => x.ordenProduccionId,
+                        principalTable: "OrdenProduccion",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SectorProduccion",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    NroSector = table.Column<int>(type: "int", nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EncargadoId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SectorProduccion", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SectorProduccion_Empleado_EncargadoId",
+                        column: x => x.EncargadoId,
+                        principalTable: "Empleado",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Observaciones",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Texto = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AutoparteId = table.Column<int>(type: "int", nullable: true),
+                    OrdenProduccionId = table.Column<int>(type: "int", nullable: true),
+                    OrdenTrabajoAutoparteId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Observaciones", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Observaciones_Autoparte_AutoparteId",
+                        column: x => x.AutoparteId,
+                        principalTable: "Autoparte",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Observaciones_OrdenProduccion_OrdenProduccionId",
+                        column: x => x.OrdenProduccionId,
+                        principalTable: "OrdenProduccion",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Observaciones_OrdenTrabajoAutoparte_OrdenTrabajoAutoparteId",
+                        column: x => x.OrdenTrabajoAutoparteId,
+                        principalTable: "OrdenTrabajoAutoparte",
                         principalColumn: "Id");
                 });
 
@@ -977,6 +1291,46 @@ namespace LINCARGESTION.Migrations
                 column: "UserName");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Atributo_AutoparteId",
+                table: "Atributo",
+                column: "AutoparteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AutoparteModeloProducto_ModelosProduccionId",
+                table: "AutoparteModeloProducto",
+                column: "ModelosProduccionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AutoparteSectorProduccion_SectoresProduccionId",
+                table: "AutoparteSectorProduccion",
+                column: "SectoresProduccionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Empleado_SectorProduccionId",
+                table: "Empleado",
+                column: "SectorProduccionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EstadoOrdenProduccion_OrdenId",
+                table: "EstadoOrdenProduccion",
+                column: "OrdenId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Observaciones_AutoparteId",
+                table: "Observaciones",
+                column: "AutoparteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Observaciones_OrdenProduccionId",
+                table: "Observaciones",
+                column: "OrdenProduccionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Observaciones_OrdenTrabajoAutoparteId",
+                table: "Observaciones",
+                column: "OrdenTrabajoAutoparteId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OpenIddictApplications_ClientId",
                 table: "OpenIddictApplications",
                 column: "ClientId");
@@ -1005,11 +1359,61 @@ namespace LINCARGESTION.Migrations
                 name: "IX_OpenIddictTokens_ReferenceId",
                 table: "OpenIddictTokens",
                 column: "ReferenceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrdenProduccion_ClienteId",
+                table: "OrdenProduccion",
+                column: "ClienteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrdenProduccion_ModeloProductoId",
+                table: "OrdenProduccion",
+                column: "ModeloProductoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrdenTrabajoAutoparte_AutoparteId",
+                table: "OrdenTrabajoAutoparte",
+                column: "AutoparteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrdenTrabajoAutoparte_EmpleadoId",
+                table: "OrdenTrabajoAutoparte",
+                column: "EmpleadoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrdenTrabajoAutoparte_ordenProduccionId",
+                table: "OrdenTrabajoAutoparte",
+                column: "ordenProduccionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SectorProduccion_EncargadoId",
+                table: "SectorProduccion",
+                column: "EncargadoId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_AutoparteSectorProduccion_SectorProduccion_SectoresProduccionId",
+                table: "AutoparteSectorProduccion",
+                column: "SectoresProduccionId",
+                principalTable: "SectorProduccion",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Empleado_SectorProduccion_SectorProduccionId",
+                table: "Empleado",
+                column: "SectorProduccionId",
+                principalTable: "SectorProduccion",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Empleado_SectorProduccion_SectorProduccionId",
+                table: "Empleado");
+
             migrationBuilder.DropTable(
                 name: "AbpAuditLogActions");
 
@@ -1080,6 +1484,21 @@ namespace LINCARGESTION.Migrations
                 name: "AbpUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Atributo");
+
+            migrationBuilder.DropTable(
+                name: "AutoparteModeloProducto");
+
+            migrationBuilder.DropTable(
+                name: "AutoparteSectorProduccion");
+
+            migrationBuilder.DropTable(
+                name: "EstadoOrdenProduccion");
+
+            migrationBuilder.DropTable(
+                name: "Observaciones");
+
+            migrationBuilder.DropTable(
                 name: "OpenIddictScopes");
 
             migrationBuilder.DropTable(
@@ -1101,13 +1520,34 @@ namespace LINCARGESTION.Migrations
                 name: "AbpUsers");
 
             migrationBuilder.DropTable(
+                name: "OrdenTrabajoAutoparte");
+
+            migrationBuilder.DropTable(
                 name: "OpenIddictAuthorizations");
 
             migrationBuilder.DropTable(
                 name: "AbpAuditLogs");
 
             migrationBuilder.DropTable(
+                name: "Autoparte");
+
+            migrationBuilder.DropTable(
+                name: "OrdenProduccion");
+
+            migrationBuilder.DropTable(
                 name: "OpenIddictApplications");
+
+            migrationBuilder.DropTable(
+                name: "Cliente");
+
+            migrationBuilder.DropTable(
+                name: "ModeloProducto");
+
+            migrationBuilder.DropTable(
+                name: "SectorProduccion");
+
+            migrationBuilder.DropTable(
+                name: "Empleado");
         }
     }
 }
