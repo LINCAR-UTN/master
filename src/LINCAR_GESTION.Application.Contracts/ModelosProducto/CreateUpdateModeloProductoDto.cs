@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using LINCAR_GESTION.Autopartes;
-using LINCAR_GESTION.OrdenesProduccion;
-using Volo.Abp.Application.Dtos;
 
 namespace LINCAR_GESTION.ModelosProducto
 {
-    public class ModeloProductoDto : EntityDto<int>
+    public class CreateUpdateModeloProductoDto
     {
+        public int? Id { get; set; }
         public string CodigoModelo { get; set; }
         public float LargoTotalMts { get; set; } = 0;
         public float LargoUtilMts { get; set; } = 0;
@@ -31,11 +29,5 @@ namespace LINCAR_GESTION.ModelosProducto
         public int Boquillas { get; set; } = 0;
         public int PortaEstacas { get; set; } = 0;
         public float Voltaje { get; set; } = 12;
-
-        // Relacion 1 a * OrdenesProducción
-        public ICollection<OrdenProduccionDto>? OrdenesProduccion { get; set; } // creo que esta navigabilidad no es necesaria
-
-        // Relación * a * ModeloProducto
-        public ICollection<AutoparteDto>? Autopartes { get; set; }
     }
 }

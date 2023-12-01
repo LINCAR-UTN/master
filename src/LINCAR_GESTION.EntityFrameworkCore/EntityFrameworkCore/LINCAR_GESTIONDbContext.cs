@@ -64,6 +64,12 @@ public class LINCAR_GESTIONDbContext :
 
     #endregion
 
+    #region DB-Sets
+    public DbSet<OrdenProduccion> OrdenesProduccion { get; set; }
+    public DbSet<Cliente> Clientes { get; set; }
+    public DbSet<ModeloProducto> ModelosProducto { get; set; }
+
+    #endregion
     public LINCAR_GESTIONDbContext(DbContextOptions<LINCAR_GESTIONDbContext> options)
         : base(options)
     {
