@@ -13,8 +13,8 @@ using Volo.Abp.EntityFrameworkCore;
 namespace LINCARGESTION.Migrations
 {
     [DbContext(typeof(LINCAR_GESTIONDbContext))]
-    [Migration("20231130214424_entidades_modificadas")]
-    partial class entidadesmodificadas
+    [Migration("20231201041808_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -55,21 +55,6 @@ namespace LINCARGESTION.Migrations
                     b.HasIndex("SectoresProduccionId");
 
                     b.ToTable("AutoparteSectorProduccion");
-                });
-
-            modelBuilder.Entity("EstadoOrdenProduccionOrdenProduccion", b =>
-                {
-                    b.Property<int>("EstadosId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OrdenesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("EstadosId", "OrdenesId");
-
-                    b.HasIndex("OrdenesId");
-
-                    b.ToTable("EstadoOrdenProduccionOrdenProduccion");
                 });
 
             modelBuilder.Entity("LINCAR_GESTION.Atributos.Atributo", b =>
@@ -163,7 +148,7 @@ namespace LINCARGESTION.Migrations
                     b.ToTable("Empleado", (string)null);
                 });
 
-            modelBuilder.Entity("LINCAR_GESTION.EstadosOrdenAutoparte.EstadoOrdenProduccion", b =>
+            modelBuilder.Entity("LINCAR_GESTION.EstadosOrdenProduccion.EstadoOrdenProduccion", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -177,7 +162,12 @@ namespace LINCARGESTION.Migrations
                     b.Property<int>("Nombre")
                         .HasColumnType("int");
 
+                    b.Property<int>("OrdenId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("OrdenId");
 
                     b.ToTable("EstadoOrdenProduccion");
                 });
@@ -2284,21 +2274,6 @@ namespace LINCARGESTION.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("EstadoOrdenProduccionOrdenProduccion", b =>
-                {
-                    b.HasOne("LINCAR_GESTION.EstadosOrdenAutoparte.EstadoOrdenProduccion", null)
-                        .WithMany()
-                        .HasForeignKey("EstadosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LINCAR_GESTION.OrdenesProduccion.OrdenProduccion", null)
-                        .WithMany()
-                        .HasForeignKey("OrdenesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("LINCAR_GESTION.Atributos.Atributo", b =>
                 {
                     b.HasOne("LINCAR_GESTION.Autopartes.Autoparte", "Autoparte")
@@ -2319,6 +2294,17 @@ namespace LINCARGESTION.Migrations
                         .IsRequired();
 
                     b.Navigation("SectorProduccion");
+                });
+
+            modelBuilder.Entity("LINCAR_GESTION.EstadosOrdenProduccion.EstadoOrdenProduccion", b =>
+                {
+                    b.HasOne("LINCAR_GESTION.OrdenesProduccion.OrdenProduccion", "Orden")
+                        .WithMany("Estados")
+                        .HasForeignKey("OrdenId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Orden");
                 });
 
             modelBuilder.Entity("LINCAR_GESTION.Observaciones.Observacion", b =>
@@ -2556,6 +2542,8 @@ namespace LINCARGESTION.Migrations
 
             modelBuilder.Entity("LINCAR_GESTION.OrdenesProduccion.OrdenProduccion", b =>
                 {
+                    b.Navigation("Estados");
+
                     b.Navigation("Observaciones");
 
                     b.Navigation("OrdenesTrabajoAutoparte");

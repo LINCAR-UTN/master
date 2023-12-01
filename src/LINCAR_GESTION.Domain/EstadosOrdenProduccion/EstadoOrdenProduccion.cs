@@ -6,14 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Entities;
 
-namespace LINCAR_GESTION.EstadosOrdenAutoparte
+namespace LINCAR_GESTION.EstadosOrdenProduccion
 {
     public class EstadoOrdenProduccion : Entity<int>
     {
-        public NombreEstadoOrdenAutoparte Nombre {  get; set; }
+        public NombreEstadoOrdenProduccion Nombre {  get; set; }
         public DateTime FechaHoraHasta {get; set; }
 
         // Relación * a * OrdenProduccion
-        public ICollection<OrdenProduccion> Ordenes { get; set; }
+        public OrdenProduccion Orden { get; set; } // cada estado pertenece a una sola orden porque representa un estado de una orden en un momento determinado
     }
 }

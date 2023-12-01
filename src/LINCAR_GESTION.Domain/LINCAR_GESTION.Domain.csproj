@@ -27,8 +27,4 @@
     <PackageReference Include="Volo.Abp.PermissionManagement.Domain.OpenIddict" Version="7.4.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="EstadosOrdenTrabajoAutoparte\" />
-  </ItemGroup>
-
 </Project>

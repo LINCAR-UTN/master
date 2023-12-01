@@ -1,4 +1,4 @@
-﻿using LINCAR_GESTION.EstadosOrdenAutoparte;
+﻿using LINCAR_GESTION.EstadosOrdenProduccion;
 using LINCAR_GESTION.ModelosProducto;
 using LINCAR_GESTION.Observaciones;
 using LINCAR_GESTION.OrdenesTrabajoAutoparte;
@@ -19,7 +19,7 @@ namespace LINCAR_GESTION.OrdenesProduccion
         public DateTime FechaEntrega { get; set; }
         public DateTime FechaEntregaEfectiva { get; set; }
         public string DescripcionCamion {  get; set; }
-        public float CentroRuiedaCamion { get; set; }
+        public float CentroRuedaCamion { get; set; }
         public string ModeloCamion {get; set; }
         public string CajaVelocidadCamion { get; set; }
         public float AnchoChasisCamion { get; set; }
@@ -59,7 +59,7 @@ namespace LINCAR_GESTION.OrdenesProduccion
         public ICollection<OrdenTrabajoAutoparte> OrdenesTrabajoAutoparte { get; set; }
 
         // Relacion 1 a * Observaciones
-        public List<Observacion> Observaciones { get; set; }
+        public ICollection<Observacion> Observaciones { get; set; }
 
     }
 }

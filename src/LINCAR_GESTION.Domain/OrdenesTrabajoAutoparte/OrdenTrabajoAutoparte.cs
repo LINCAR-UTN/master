@@ -30,7 +30,7 @@ namespace LINCAR_GESTION.OrdenesTrabajoAutoparte
         public Autoparte Autoparte { get; set; }
 
         // Relacion 1 a * observaciones
-        public List<Observacion> Observaciones { get; set; }
+        public ICollection<Observacion> Observaciones { get; set; }
 
     }
 }

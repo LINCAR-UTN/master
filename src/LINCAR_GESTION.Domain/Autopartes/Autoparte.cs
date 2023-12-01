@@ -18,7 +18,9 @@ namespace LINCAR_GESTION.Autopartes
         public int CodAutoparte { get; set; }
         public string Nombre { get; set; }
         public bool Activa { get; set; }
-        public List<Observacion> Observaciones { get; set; }
+        
+        // Relacion 1 a * Observaciones
+        public ICollection<Observacion> Observaciones { get; set; }
 
         // Relacion 1 a * OrdenTrabajoAutoparte
         public ICollection<OrdenTrabajoAutoparte> OrdenesTrabajoAutopartes { get; set; }

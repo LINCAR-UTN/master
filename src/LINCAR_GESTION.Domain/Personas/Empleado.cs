@@ -24,7 +24,7 @@ namespace LINCAR_GESTION.Empleados
         //Relacion 1 a * SectorProduccion
         public SectorProduccion SectorProduccion { get; set; } // Sector de Producción en el que trabaja
         //Relacion 1 a * Encargado -> SectorProduccion
-        public ICollection<SectorProduccion> SectoresProduccionACargo { get; set; } // Sectores de Produccíón de los cuales está a cargo
+        public ICollection<SectorProduccion>? SectoresProduccionACargo { get; set; } // Sectores de Produccíón de los cuales está a cargo
 
 
     }

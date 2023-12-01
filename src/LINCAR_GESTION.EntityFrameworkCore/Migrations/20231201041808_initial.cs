@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LINCARGESTION.Migrations
 {
     /// <inheritdoc />
-    public partial class entidadesmodificadas : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -422,20 +422,6 @@ namespace LINCARGESTION.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cliente", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EstadoOrdenProduccion",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<int>(type: "int", nullable: false),
-                    FechaHoraHasta = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EstadoOrdenProduccion", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -920,24 +906,21 @@ namespace LINCARGESTION.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "EstadoOrdenProduccionOrdenProduccion",
+                name: "EstadoOrdenProduccion",
                 columns: table => new
                 {
-                    EstadosId = table.Column<int>(type: "int", nullable: false),
-                    OrdenesId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<int>(type: "int", nullable: false),
+                    FechaHoraHasta = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    OrdenId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EstadoOrdenProduccionOrdenProduccion", x => new { x.EstadosId, x.OrdenesId });
+                    table.PrimaryKey("PK_EstadoOrdenProduccion", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EstadoOrdenProduccionOrdenProduccion_EstadoOrdenProduccion_EstadosId",
-                        column: x => x.EstadosId,
-                        principalTable: "EstadoOrdenProduccion",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_EstadoOrdenProduccionOrdenProduccion_OrdenProduccion_OrdenesId",
-                        column: x => x.OrdenesId,
+                        name: "FK_EstadoOrdenProduccion_OrdenProduccion_OrdenId",
+                        column: x => x.OrdenId,
                         principalTable: "OrdenProduccion",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -1328,9 +1311,9 @@ namespace LINCARGESTION.Migrations
                 column: "SectorProduccionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EstadoOrdenProduccionOrdenProduccion_OrdenesId",
-                table: "EstadoOrdenProduccionOrdenProduccion",
-                column: "OrdenesId");
+                name: "IX_EstadoOrdenProduccion_OrdenId",
+                table: "EstadoOrdenProduccion",
+                column: "OrdenId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Observaciones_AutoparteId",
@@ -1510,7 +1493,7 @@ namespace LINCARGESTION.Migrations
                 name: "AutoparteSectorProduccion");
 
             migrationBuilder.DropTable(
-                name: "EstadoOrdenProduccionOrdenProduccion");
+                name: "EstadoOrdenProduccion");
 
             migrationBuilder.DropTable(
                 name: "Observaciones");
@@ -1535,9 +1518,6 @@ namespace LINCARGESTION.Migrations
 
             migrationBuilder.DropTable(
                 name: "AbpUsers");
-
-            migrationBuilder.DropTable(
-                name: "EstadoOrdenProduccion");
 
             migrationBuilder.DropTable(
                 name: "OrdenTrabajoAutoparte");
