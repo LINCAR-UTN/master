@@ -15,9 +15,9 @@ namespace LINCAR_GESTION.Autopartes
 {
     public class Autoparte : Entity<int>
     {
-        public int CodAutoparte { get; set; }
-        public string Nombre { get; set; }
-        public bool Activa { get; set; }
+        public int CodAutoparte { get; set; } = 0;
+        public string Nombre { get; set; } = string.Empty;
+        public bool Activa { get; set; } = true;
         
         // Relacion 1 a * Observaciones
         public ICollection<Observacion>? Observaciones { get; set; }
