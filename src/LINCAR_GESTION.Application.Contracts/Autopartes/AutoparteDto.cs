@@ -20,12 +20,12 @@ namespace LINCAR_GESTION.Autopartes
         public ICollection<ObservacionDto>? Observaciones { get; set; }
 
         // Relacion 1 a * OrdenTrabajoAutoparte
-        public ICollection<OrdenTrabajoAutoparteDto>? OrdenesTrabajoAutopartes { get; set; }
+        // public ICollection<OrdenTrabajoAutoparteDto>? OrdenesTrabajoAutopartes { get; set; }
 
         // Relación * a * SectorProduccion
-        public ICollection<SectorProduccionDto>? SectoresProduccion { get; set; }
+        public ICollection<int>? SectoresProduccionIds { get; set; }
         // Relación * a * ModeloProducto
-        public ICollection<ModeloProductoDto>? ModelosProduccion { get; set; }
+        public ICollection<int>? ModelosProduccionIds { get; set; }
 
         // Relación 1 a * Atributo
         public ICollection<AtributoDto>? Atributos { get; set; }

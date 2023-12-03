@@ -14,11 +14,11 @@ namespace LINCAR_GESTION.SectoresProduccion
         public string Descripcion { get; set; }
 
         //Relación 1 a * Empleado(s)
-        public ICollection<EmpleadoDto> Empleados { get; set; } // un Sector de producción tiene tantos a cargo
+        public ICollection<int>? EmpleadosId { get; set; } // empleados que trabajan en el Sector de producción
 
         //Relación * a 1 Encargado
-        public EmpleadoDto Encargado { get; set; } // Un sector de producción tiene un encargado
+        public int EncargadoId { get; set; } // Un sector de producción tiene un encargado
 
-        public ICollection<AutoparteDto> Autopartes { get; set; }
+        public ICollection<int>? AutopartesIds { get; set; }
     }
 }

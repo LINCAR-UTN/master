@@ -68,7 +68,11 @@ public class LINCAR_GESTIONDbContext :
     #region DB-Sets
     public DbSet<OrdenProduccion> OrdenesProduccion { get; set; }
     public DbSet<Cliente> Clientes { get; set; }
+    public DbSet<Empleado> Empleados { get; set; }    
     public DbSet<ModeloProducto> ModelosProducto { get; set; }
+    public DbSet<Autoparte> Autopartes { get; set; }
+    public DbSet<OrdenTrabajoAutoparte> OrdenesTrabajoAutoparte { get; set; }
+
 
     #endregion
     public LINCAR_GESTIONDbContext(DbContextOptions<LINCAR_GESTIONDbContext> options)
@@ -149,48 +153,6 @@ public class LINCAR_GESTIONDbContext :
 
         });
 
-        builder.Entity<OrdenTrabajoAutoparte>(b =>
-        {
-            b.ToTable(LINCAR_GESTIONConsts.DbTablePrefix + "OrdenesTrabajoAutoparte", LINCAR_GESTIONConsts.DbSchema);
-            b.ConfigureByConvention();
-
-            //Relación * a * EstadoOrdenTrabajoAutoparte definida por convención en EF Core
-
-            b.HasMany<Observacion>(x => x.Observaciones)
-                .WithOne()
-                .HasForeignKey("OrdenTrabajoAutoparteId")
-                .IsRequired(false);
-
-            // relacion con EstadoOrdenTrabajoAutoparte
-            b.HasMany(x => x.Estados)
-                .WithOne(x => x.OrdenTrabajoAutoparte);
-
-        });
-
-        builder.Entity<Empleado>(b =>
-        {
-            b.ToTable(LINCAR_GESTIONConsts.DbTablePrefix + "Empleados", LINCAR_GESTIONConsts.DbSchema);
-            b.ConfigureByConvention();
-
-            //Relación 1 a * OrdenTrabajoAutoparte
-            b.HasMany(x => x.OrdenesTrabajoAutoparte)
-                .WithOne(x => x.Empleado);
-
-            //Relación 1 a * SectorProduccion 
-            b.HasMany(x => x.SectoresProduccionACargo)
-                .WithOne(x => x.Encargado);
-        });
-
-        builder.Entity<SectorProduccion>(b =>
-        {
-            b.ToTable(LINCAR_GESTIONConsts.DbTablePrefix + "SectoresProduccion", LINCAR_GESTIONConsts.DbSchema);
-            b.ConfigureByConvention();
-
-            //Relación 1 a * Empleados
-            b.HasMany(x => x.Empleados)
-                .WithOne(x => x.SectorProduccion);
-        });
-
         builder.Entity<Autoparte>(b =>
         {
             b.ToTable(LINCAR_GESTIONConsts.DbTablePrefix + "Autopartes", LINCAR_GESTIONConsts.DbSchema);
@@ -209,6 +171,54 @@ public class LINCAR_GESTIONDbContext :
                 .IsRequired(false);
             // Relación * a * SectorDeProduccion definida por convención de EF Core
             // Relación * a * ModeloProducto definida por convención de EF Core
+        });
+
+        builder.Entity<OrdenTrabajoAutoparte>(b =>
+        {
+            b.ToTable(LINCAR_GESTIONConsts.DbTablePrefix + "OrdenesTrabajoAutoparte", LINCAR_GESTIONConsts.DbSchema);
+            b.ConfigureByConvention();
+
+            //Relación * a * EstadoOrdenTrabajoAutoparte definida por convención en EF Core
+
+            b.HasMany<Observacion>(x => x.Observaciones)
+                .WithOne()
+                .HasForeignKey("OrdenTrabajoAutoparteId")
+                .IsRequired(false);
+
+            // relacion con EstadoOrdenTrabajoAutoparte
+            b.HasMany(x => x.Estados)
+                .WithOne(x => x.OrdenTrabajoAutoparte);
+
+            // relacion con Encargado Solicitante
+            //b.HasOne(x => x.Solicitante)
+            //    .WithMany(x => x.OrdenesTrabajoAutoparte);
+
+        });
+
+        builder.Entity<Empleado>(b =>
+        {
+            b.ToTable(LINCAR_GESTIONConsts.DbTablePrefix + "Empleados", LINCAR_GESTIONConsts.DbSchema);
+            b.ConfigureByConvention();
+
+            //Relación 1 a * OrdenTrabajoAutoparte
+            b.HasMany(x => x.OrdenesTrabajoAutoparte)
+                .WithOne(x => x.Empleado)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            //Relación 1 a * SectorProduccion 
+            b.HasMany(x => x.SectoresProduccionACargo)
+                .WithOne(x => x.Encargado)
+                .OnDelete(DeleteBehavior.NoAction);
+        });
+
+        builder.Entity<SectorProduccion>(b =>
+        {
+            b.ToTable(LINCAR_GESTIONConsts.DbTablePrefix + "SectoresProduccion", LINCAR_GESTIONConsts.DbSchema);
+            b.ConfigureByConvention();
+
+            //Relación 1 a * Empleados
+            b.HasMany(x => x.Empleados)
+                .WithMany(x => x.SectorProduccionEmpleado);
         });
 
         builder.Entity<Atributo>(b =>
