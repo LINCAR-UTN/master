@@ -4,6 +4,7 @@ using LINCAR_GESTION.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Volo.Abp.EntityFrameworkCore;
 
@@ -12,9 +13,11 @@ using Volo.Abp.EntityFrameworkCore;
 namespace LINCAR_GESTION.Migrations
 {
     [DbContext(typeof(LINCAR_GESTIONDbContext))]
-    partial class LINCAR_GESTIONDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231203210244_modificado_Autoparte_sectorProduccion")]
+    partial class modificado_Autoparte_sectorProduccion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

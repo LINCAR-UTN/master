@@ -1,6 +1,7 @@
 ﻿
 
 using System.Threading.Tasks;
+using LINCAR_GESTION.Autopartes;
 using LINCAR_GESTION.ModelosProducto;
 using LINCAR_GESTION.OrdenesProduccion;
 using LINCAR_GESTION.Personas;
@@ -15,17 +16,20 @@ public class LINCAR_GESTIONTestDataSeedContributor : IDataSeedContributor, ITran
     private readonly IRepository<ModeloProducto, int> _modeloProductoRepository;
     private readonly IRepository<Cliente, int> _clienteRepository;
     private readonly IRepository<OrdenProduccion, int> _ordenProduccionRepository;
+    private readonly IRepository<Autoparte, int> _autoparteRepository;
 
     public LINCAR_GESTIONTestDataSeedContributor
         (
         IRepository<ModeloProducto,int> modeloProductoRepository, 
         IRepository<Cliente, int> clienteRepository, 
-        IRepository<OrdenProduccion, int> ordenProduccionRepository
+        IRepository<OrdenProduccion, int> ordenProduccionRepository,
+        IRepository<Autoparte, int> autoparteRepository
         )
     {
         _modeloProductoRepository = modeloProductoRepository;
         _clienteRepository = clienteRepository;
         _ordenProduccionRepository = ordenProduccionRepository;
+        _autoparteRepository = autoparteRepository;
     }
     public async Task SeedAsync(DataSeedContext context)
     {
@@ -75,6 +79,16 @@ public class LINCAR_GESTIONTestDataSeedContributor : IDataSeedContributor, ITran
             ModeloProducto = modeloProducto1
         });
 
+        Autoparte autoparte1 = await _autoparteRepository.InsertAsync(new Autoparte
+        {
+            CodAutoparte = 205,
+            Nombre = "Autoparte de dataSeed 1"
+        });
 
+        Autoparte autoparte2 = await _autoparteRepository.InsertAsync(new Autoparte
+        {
+            CodAutoparte = 215,
+            Nombre = "Autoparte de dataSeed 2"
+        });
     }
 }

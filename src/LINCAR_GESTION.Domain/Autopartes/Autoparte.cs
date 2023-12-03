@@ -15,23 +15,23 @@ namespace LINCAR_GESTION.Autopartes
 {
     public class Autoparte : Entity<int>
     {
-        public int CodAutoparte { get; set; }
-        public string Nombre { get; set; }
-        public bool Activa { get; set; }
+        public int CodAutoparte { get; set; } = 0;
+        public string Nombre { get; set; } = string.Empty;
+        public bool Activa { get; set; } = true;
         
         // Relacion 1 a * Observaciones
-        public ICollection<Observacion> Observaciones { get; set; }
+        public ICollection<Observacion>? Observaciones { get; set; }
 
         // Relacion 1 a * OrdenTrabajoAutoparte
-        public ICollection<OrdenTrabajoAutoparte> OrdenesTrabajoAutopartes { get; set; }
+        public ICollection<OrdenTrabajoAutoparte>? OrdenesTrabajoAutopartes { get; set; }
         
         // Relación * a * SectorProduccion
-        public ICollection<SectorProduccion> SectoresProduccion { get; set; }
+        public ICollection<SectorProduccion>? SectoresProduccion { get; set; }
         // Relación * a * ModeloProducto
-        public ICollection<ModeloProducto> ModelosProduccion { get; set; } 
+        public ICollection<ModeloProducto>? ModelosProduccion { get; set; } 
 
         // Relación 1 a * Atributo
-        public ICollection<Atributo> Atributos { get; set; }
+        public ICollection<Atributo>? Atributos { get; set; }
 
     }
 }

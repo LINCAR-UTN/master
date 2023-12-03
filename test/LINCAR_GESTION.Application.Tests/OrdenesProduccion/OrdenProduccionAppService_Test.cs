@@ -9,7 +9,7 @@ using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.Uow;
 using Xunit;
 
-namespace LINCAR_GESTION.ModelosProducto
+namespace LINCAR_GESTION.OrdenesProduccion
 {
     public class OrdenProduccionAppService_Test : LINCAR_GESTIONApplicationTestBase
     {

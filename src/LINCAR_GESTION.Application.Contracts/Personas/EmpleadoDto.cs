@@ -21,10 +21,10 @@ namespace LINCAR_GESTION.Empleados
         public bool activo { get; set; }
 
         //Relación 1 a * OrdenTrabajoAutoparte
-        public ICollection<OrdenTrabajoAutoparteDto> OrdenesTrabajoAutoparte { get; set; }
+        public ICollection<int>? OrdenesTrabajoAutoparteIds { get; set; }
         //Relacion 1 a * SectorProduccion
-        public SectorProduccionDto SectorProduccion { get; set; } // Sector de Producción en el que trabaja
+        public ICollection<int>? SectorProduccionEmpleadoIds { get; set; } // Sectores de Producción en los cuales trabaja
         //Relacion 1 a * Encargado -> SectorProduccion
-        public ICollection<SectorProduccionDto>? SectoresProduccionACargo { get; set; } // Sectores de Produccíón de los cuales está a cargo
+        public ICollection<int>? SectoresProduccionACargoIds { get; set; } // Sectores de Produccíón de los cuales está a cargo
     }
 }

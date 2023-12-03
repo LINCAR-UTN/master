@@ -2,16 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using LINCAR_GESTION.Atributos;
-using LINCAR_GESTION.ModelosProducto;
 using LINCAR_GESTION.Observaciones;
-using LINCAR_GESTION.OrdenesTrabajoAutoparte;
-using LINCAR_GESTION.SectoresProduccion;
-using Volo.Abp.Application.Dtos;
 
 namespace LINCAR_GESTION.Autopartes
 {
-    public class AutoparteDto : EntityDto<int>
+    public class CreateUpdateAutoparteDto
     {
+        public int? Id { get; set; }
         public int? CodAutoparte { get; set; }
         public string? Nombre { get; set; }
         public bool? Activa { get; set; } = true;
