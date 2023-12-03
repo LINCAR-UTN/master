@@ -19,13 +19,14 @@ namespace LINCAR_GESTION.OrdenesTrabajoAutoparte
         public int Cantidad {  get; set; }  
 
         // Relación 0..1 a * OrdenProduccion
-        public OrdenProduccion ordenProduccion { get; set; }
+        public OrdenProduccion? ordenProduccion { get; set; }
 
         // Relación * a * EstadosOrdenTrabajoAutoparte
         public ICollection<EstadoOrdenTrabajoAutoparte>? Estados { get; set; }
 
         // Relación 0..1 a * Empleado
         public Empleado Empleado { get; set; }
+        public Empleado Solicitante { get; set; } // Encargado que solicita
 
         // Relación 1 a * Autoparte
         public Autoparte Autoparte { get; set; }

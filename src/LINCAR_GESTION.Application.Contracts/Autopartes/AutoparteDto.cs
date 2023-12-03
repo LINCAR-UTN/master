@@ -17,17 +17,17 @@ namespace LINCAR_GESTION.Autopartes
         public bool Activa { get; set; }
 
         // Relacion 1 a * Observaciones
-        public ICollection<ObservacionDto> Observaciones { get; set; }
+        public ICollection<ObservacionDto>? Observaciones { get; set; }
 
         // Relacion 1 a * OrdenTrabajoAutoparte
-        public ICollection<OrdenTrabajoAutoparteDto> OrdenesTrabajoAutopartes { get; set; }
+        public ICollection<OrdenTrabajoAutoparteDto>? OrdenesTrabajoAutopartes { get; set; }
 
         // Relación * a * SectorProduccion
-        public ICollection<SectorProduccionDto> SectoresProduccion { get; set; }
+        public ICollection<SectorProduccionDto>? SectoresProduccion { get; set; }
         // Relación * a * ModeloProducto
-        public ICollection<ModeloProductoDto> ModelosProduccion { get; set; }
+        public ICollection<ModeloProductoDto>? ModelosProduccion { get; set; }
 
         // Relación 1 a * Atributo
-        public ICollection<AtributoDto> Atributos { get; set; }
+        public ICollection<AtributoDto>? Atributos { get; set; }
     }
 }
