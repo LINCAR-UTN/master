@@ -1,5 +1,6 @@
 ﻿using LINCAR_GESTION.Autopartes;
 using LINCAR_GESTION.Empleados;
+using LINCAR_GESTION.EstadosOrdenTrabajoAutoparte;
 using LINCAR_GESTION.Observaciones;
 using LINCAR_GESTION.OrdenesProduccion;
 using System;
@@ -21,7 +22,7 @@ namespace LINCAR_GESTION.OrdenesTrabajoAutoparte
         public OrdenProduccion ordenProduccion { get; set; }
 
         // Relación * a * EstadosOrdenTrabajoAutoparte
-        // public ICollection<EstadosOrdenTrabajoAutoparte> Estados { get; set; }
+        public ICollection<EstadoOrdenTrabajoAutoparte>? Estados { get; set; }
 
         // Relación 0..1 a * Empleado
         public Empleado Empleado { get; set; }
@@ -30,7 +31,7 @@ namespace LINCAR_GESTION.OrdenesTrabajoAutoparte
         public Autoparte Autoparte { get; set; }
 
         // Relacion 1 a * observaciones
-        public ICollection<Observacion> Observaciones { get; set; }
+        public ICollection<Observacion>? Observaciones { get; set; }
 
     }
 }

@@ -33,7 +33,7 @@ namespace LINCAR_GESTION.ModelosProducto
         public float Voltaje { get; set; } = 12;
 
         // Relacion 1 a * OrdenesProducción
-        public ICollection<OrdenProduccionDto>? OrdenesProduccion { get; set; } // creo que esta navigabilidad no es necesaria
+        // public ICollection<OrdenProduccionDto>? OrdenesProduccion { get; set; } // creo que esta navigabilidad no es necesaria
 
         // Relación * a * ModeloProducto
         public ICollection<AutoparteDto>? Autopartes { get; set; }

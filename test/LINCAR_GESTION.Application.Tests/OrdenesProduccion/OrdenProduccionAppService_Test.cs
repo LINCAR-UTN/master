@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using LINCAR_GESTION.EntityFrameworkCore;
 using LINCAR_GESTION.OrdenesProduccion;
+using LINCAR_GESTION.Personas;
 using Shouldly;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.Uow;
@@ -38,10 +40,11 @@ namespace LINCAR_GESTION.ModelosProducto
         {
             //Arrange            
             var input = new CreateUpdateOrdenProduccionDto
-            {
-                NroOrden = 1,
-                ClienteId = 1,
-                ModeloProductoId = 1
+            {   
+                Id = null,
+                NroOrden = 101,
+                ClienteId = 2,
+                ModeloProductoId = 2,
             };
 
             //Act
@@ -60,26 +63,26 @@ namespace LINCAR_GESTION.ModelosProducto
             }
         }
 
-        //[Fact]
-        //public async Task Should_Update_OrdenProduccion()
-        //{
-        //    //Arrange            
-        //    var input = new CreateUpdateOrdenProduccionDto { CodigoModelo = "LC-114", Id = 1 };
+        [Fact]
+        public async Task Should_Update_OrdenProduccion()
+        {
+            //Arrange            
+            var input = new CreateUpdateOrdenProduccionDto { NroOrden = 105, Id = 2 };
 
-        //    //Act
-        //    var newOrdenProduccion = await _ordenProduccionAppService.CreateUpdateOrdenProduccionAsync(input);
+            //Act
+            var newOrdenProduccion = await _ordenProduccionAppService.CreateUpdateOrdenProduccionAsync(input);
 
-        //    //Assert
-        //    // Se verifican los datos devueltos por el servicio
-        //    newOrdenProduccion.ShouldNotBeNull();
-        //    newOrdenProduccion.Id.ShouldBePositive();
-        //    // se verifican los datos persistidos por el servicio
-        //    using (var uow = _unitOfWorkManager.Begin())
-        //    {
-        //        var dbContext = await _dbContextProvider.GetDbContextAsync();
-        //        dbContext.ModelosProducto.FirstOrDefault(t => t.Id == newOrdenProduccion.Id).ShouldNotBeNull();
-        //        dbContext.ModelosProducto.FirstOrDefault(t => t.Id == newOrdenProduccion.Id).CodigoModelo.ShouldBe(input.CodigoModelo);
-        //    }
-        //}
+            //Assert
+            // Se verifican los datos devueltos por el servicio
+            newOrdenProduccion.ShouldNotBeNull();
+            newOrdenProduccion.Id.ShouldBePositive();
+            // se verifican los datos persistidos por el servicio
+            using (var uow = _unitOfWorkManager.Begin())
+            {
+                var dbContext = await _dbContextProvider.GetDbContextAsync();
+                dbContext.OrdenesProduccion.FirstOrDefault(t => t.Id == newOrdenProduccion.Id).ShouldNotBeNull();
+                dbContext.OrdenesProduccion.FirstOrDefault(t => t.Id == newOrdenProduccion.Id).NroOrden.ShouldBe(input.NroOrden);
+            }
+        }
     }
 }

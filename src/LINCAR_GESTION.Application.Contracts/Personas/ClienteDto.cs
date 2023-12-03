@@ -20,6 +20,6 @@ namespace LINCAR_GESTION.Personas
         public string Direccion { get; set; }
 
         // Relación 1 a * Ordenes de Producción
-        public ICollection<OrdenProduccionDto> OrdenesProduccion { get; set; }
+        // public ICollection<OrdenProduccionDto>? OrdenesProduccion { get; set; }
     }
 }

@@ -32,61 +32,61 @@ namespace LINCAR_GESTION.OrdenesProduccion
 
         public async Task<OrdenProduccionDto> CreateUpdateOrdenProduccionAsync(CreateUpdateOrdenProduccionDto input)
         {
-            //var userGuid = CurrentUser.Id.GetValueOrDefault();
-
-            //var identityUser = await _userManager.FindByIdAsync(userGuid.ToString());
-            var cliente = await _clienteRepository.FindAsync(input.ClienteId);
-            var modeloProducto = await _modeloProductoRepository.FindAsync(input.ModeloProductoId);
-
-            //var ordenProduccion = ObjectMapper.Map<CreateUpdateOrdenProduccionDto, OrdenProduccion>(input);
-
-            //ordenProduccion.Cliente = cliente;
-            //ordenProduccion.ModeloProducto = modeloProducto;
-
-            var ordenProduccion = new OrdenProduccion
+            var ordenProduccion = ObjectMapper.Map<CreateUpdateOrdenProduccionDto, OrdenProduccion>(input);
+            if (input.ClienteId != null) 
+            { 
+                var cliente = await _clienteRepository.GetAsync(input.ClienteId.Value);
+                ordenProduccion.Cliente = cliente;
+            }
+            if (input.ModeloProductoId != null)
             {
-                NroOrden = input.NroOrden,
-                FechaEmision = input.FechaEmision,
-                FechaEntrega = input.FechaEntrega,
-                FechaEntregaEfectiva = input.FechaEntregaEfectiva,
-                DescripcionCamion = input.DescripcionCamion,
-                CentroRuedaCamion = input.CentroRuedaCamion,
-                ModeloCamion = input.ModeloCamion,
-                CajaVelocidadCamion = input.CajaVelocidadCamion,
-                AnchoChasisCamion = input.AnchoChasisCamion,
-                DominioCamion = input.DominioCamion,
-                ColorCamion = input.ColorCamion,
-                LargoChasisCamion = input.LargoChasisCamion,
-                LargoTotalMts = input.LargoTotalMts,
-                LargoUtilMts = input.LargoUtilMts,
-                AltoTotalMts = input.AltoTotalMts,
-                AltoUtilMts = input.AltoUtilMts,
-                AnchoTotalMts = input.AnchoTotalMts,
-                AnchoUtilMts = input.AnchoUtilMts,
-                EspesorPisoMms = input.EspesorPisoMms,
-                TipoUnidad = input.TipoUnidad,
-                TipoPiso = input.TipoPiso,
-                ColorZocalo = input.ColorZocalo,
-                ColorInferior = input.ColorInferior,
-                PuertaLateral = input.PuertaLateral,
-                PuertaTrasera = input.PuertaTrasera,
-                Malacates = input.Malacates,
-                Arcos = input.Arcos,
-                Escalera = input.Escalera,
-                Boquillas = input.Boquillas,
-                PortaEstacas = input.PortaEstacas,
-                Voltaje = input.Voltaje,
-                Cliente = cliente,
-                ModeloProducto = modeloProducto,
-            };
+                var modeloProducto = await _modeloProductoRepository.GetAsync(input.ModeloProductoId.Value);
+                ordenProduccion.ModeloProducto = modeloProducto;
+            }
 
             if (input.Id is null)
             {
+                //var ordenProduccion = new OrdenProduccion
+                //{
+                //    NroOrden = input.NroOrden,
+                //    FechaEmision = input.FechaEmision,
+                //    FechaEntrega = input.FechaEntrega,
+                //    FechaEntregaEfectiva = input.FechaEntregaEfectiva,
+                //    DescripcionCamion = input.DescripcionCamion,
+                //    CentroRuedaCamion = input.CentroRuedaCamion,
+                //    ModeloCamion = input.ModeloCamion,
+                //    CajaVelocidadCamion = input.CajaVelocidadCamion,
+                //    AnchoChasisCamion = input.AnchoChasisCamion,
+                //    DominioCamion = input.DominioCamion,
+                //    ColorCamion = input.ColorCamion,
+                //    LargoChasisCamion = input.LargoChasisCamion,
+                //    LargoTotalMts = input.LargoTotalMts,
+                //    LargoUtilMts = input.LargoUtilMts,
+                //    AltoTotalMts = input.AltoTotalMts,
+                //    AltoUtilMts = input.AltoUtilMts,
+                //    AnchoTotalMts = input.AnchoTotalMts,
+                //    AnchoUtilMts = input.AnchoUtilMts,
+                //    EspesorPisoMms = input.EspesorPisoMms,
+                //    TipoUnidad = input.TipoUnidad,
+                //    TipoPiso = input.TipoPiso,
+                //    ColorZocalo = input.ColorZocalo,
+                //    ColorInferior = input.ColorInferior,
+                //    PuertaLateral = input.PuertaLateral,
+                //    PuertaTrasera = input.PuertaTrasera,
+                //    Malacates = input.Malacates,
+                //    Arcos = input.Arcos,
+                //    Escalera = input.Escalera,
+                //    Boquillas = input.Boquillas,
+                //    PortaEstacas = input.PortaEstacas,
+                //    Voltaje = input.Voltaje,
+                //    Cliente = cliente,
+                //    ModeloProducto = modeloProducto,
+                //};
+
                 ordenProduccion = await _ordenProduccionRepository.InsertAsync(ordenProduccion, autoSave: true);
             }
             else
             {
-                // ordenProduccion = await _ordenProduccionRepository.GetAsync(input.Id.Value, includeDetails: true);
                 await _ordenProduccionRepository.UpdateAsync(ordenProduccion, autoSave: true);
             }
 

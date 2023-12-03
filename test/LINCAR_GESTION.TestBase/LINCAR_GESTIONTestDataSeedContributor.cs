@@ -61,6 +61,20 @@ public class LINCAR_GESTIONTestDataSeedContributor : IDataSeedContributor, ITran
             ModeloProducto = modeloProducto2
         });
 
+        OrdenProduccion ordenProduccion2 = await _ordenProduccionRepository.InsertAsync(new OrdenProduccion
+        {
+            NroOrden = 600,
+            Cliente = cliente1,
+            ModeloProducto = modeloProducto1
+        });
+
+        OrdenProduccion ordenProduccion3 = await _ordenProduccionRepository.InsertAsync(new OrdenProduccion
+        {
+            NroOrden = 205,
+            Cliente = cliente1,
+            ModeloProducto = modeloProducto1
+        });
+
 
     }
 }

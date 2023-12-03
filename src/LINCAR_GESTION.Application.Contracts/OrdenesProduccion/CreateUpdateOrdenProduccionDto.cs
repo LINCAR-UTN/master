@@ -43,8 +43,8 @@ namespace LINCAR_GESTION.OrdenesProduccion
         public float Voltaje { get; set; } = 0;
 
         // relaciones
-        public int ClienteId { get; set; }
-        public int ModeloProductoId { get; set; }
+        public int? ClienteId { get; set; }
+        public int? ModeloProductoId { get; set; }
         // public ICollection<ObservacionDto> Observaciones { get; set; } // no van las observaciones porque se agregan mediante método, 
         // no se como se hace esto porque al momento que se quiera agregar una nueva observacion la orden de produccion aun no va a estar creada
         // por lo cual no se podrá asignar la observación a la orden de producción
