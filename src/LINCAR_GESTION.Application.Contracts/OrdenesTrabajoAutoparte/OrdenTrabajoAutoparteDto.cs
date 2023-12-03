@@ -7,5 +7,6 @@ namespace LINCAR_GESTION.OrdenesTrabajoAutoparte
 {
     public class OrdenTrabajoAutoparteDto : EntityDto<int>
     {
+
     }
 }

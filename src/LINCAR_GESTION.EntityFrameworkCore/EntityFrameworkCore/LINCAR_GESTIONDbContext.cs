@@ -2,6 +2,7 @@
 using LINCAR_GESTION.Atributos;
 using LINCAR_GESTION.Autopartes;
 using LINCAR_GESTION.Empleados;
+using LINCAR_GESTION.EstadosOrdenTrabajoAutoparte;
 using LINCAR_GESTION.ModelosProducto;
 using LINCAR_GESTION.Observaciones;
 using LINCAR_GESTION.OrdenesProduccion;
@@ -103,7 +104,7 @@ public class LINCAR_GESTIONDbContext :
 
         builder.Entity<Cliente>(b =>
         {
-            b.ToTable("Cliente");
+            b.ToTable(LINCAR_GESTIONConsts.DbTablePrefix + "Clientes", LINCAR_GESTIONConsts.DbSchema);
             b.ConfigureByConvention();
 
             //Cliente 1 a * OrdenesProduccion
@@ -114,7 +115,7 @@ public class LINCAR_GESTIONDbContext :
 
         builder.Entity<ModeloProducto>(b =>
         {
-            b.ToTable("ModeloProducto");
+            b.ToTable(LINCAR_GESTIONConsts.DbTablePrefix + "ModelosProducto", LINCAR_GESTIONConsts.DbSchema);
             b.ConfigureByConvention();
 
             //ModeloProducto 1 a * OrdenesProduccion
@@ -127,7 +128,7 @@ public class LINCAR_GESTIONDbContext :
 
         builder.Entity<OrdenProduccion>(b =>
         {
-            b.ToTable("OrdenProduccion");
+            b.ToTable(LINCAR_GESTIONConsts.DbTablePrefix + "OrdenesProduccion", LINCAR_GESTIONConsts.DbSchema);
             b.ConfigureByConvention();
 
             // Relacion * a * EstadoOrdenProduccion definida por convención en EF Core
@@ -136,31 +137,39 @@ public class LINCAR_GESTIONDbContext :
             b.HasMany(x => x.OrdenesTrabajoAutoparte)
                .WithOne(x => x.ordenProduccion); // 0..1 -> No isRequired()?
 
+            // relacion con Observacion
             b.HasMany<Observacion>(x => x.Observaciones)
                 .WithOne()
                 .HasForeignKey("OrdenProduccionId")
                 .IsRequired(false);
 
+            // relacion con EstadoOrdenProduccion
+            b.HasMany(x => x.Estados)
+                .WithOne(x => x.OrdenProduccion);
+
         });
 
         builder.Entity<OrdenTrabajoAutoparte>(b =>
         {
-            b.ToTable("OrdenTrabajoAutoparte");
+            b.ToTable(LINCAR_GESTIONConsts.DbTablePrefix + "OrdenesTrabajoAutoparte", LINCAR_GESTIONConsts.DbSchema);
             b.ConfigureByConvention();
 
             //Relación * a * EstadoOrdenTrabajoAutoparte definida por convención en EF Core
-
 
             b.HasMany<Observacion>(x => x.Observaciones)
                 .WithOne()
                 .HasForeignKey("OrdenTrabajoAutoparteId")
                 .IsRequired(false);
 
+            // relacion con EstadoOrdenTrabajoAutoparte
+            b.HasMany(x => x.Estados)
+                .WithOne(x => x.OrdenTrabajoAutoparte);
+
         });
 
         builder.Entity<Empleado>(b =>
         {
-            b.ToTable("Empleado");
+            b.ToTable(LINCAR_GESTIONConsts.DbTablePrefix + "Empleados", LINCAR_GESTIONConsts.DbSchema);
             b.ConfigureByConvention();
 
             //Relación 1 a * OrdenTrabajoAutoparte
@@ -174,7 +183,7 @@ public class LINCAR_GESTIONDbContext :
 
         builder.Entity<SectorProduccion>(b =>
         {
-            b.ToTable("SectorProduccion");
+            b.ToTable(LINCAR_GESTIONConsts.DbTablePrefix + "SectoresProduccion", LINCAR_GESTIONConsts.DbSchema);
             b.ConfigureByConvention();
 
             //Relación 1 a * Empleados
@@ -184,7 +193,7 @@ public class LINCAR_GESTIONDbContext :
 
         builder.Entity<Autoparte>(b =>
         {
-            b.ToTable("Autoparte");
+            b.ToTable(LINCAR_GESTIONConsts.DbTablePrefix + "Autopartes", LINCAR_GESTIONConsts.DbSchema);
             b.ConfigureByConvention();
 
             //Relación 1 a * OrdenTrabajoAutopartes
@@ -204,24 +213,22 @@ public class LINCAR_GESTIONDbContext :
 
         builder.Entity<Atributo>(b =>
         {
-            b.ToTable("Atributo");
+            b.ToTable(LINCAR_GESTIONConsts.DbTablePrefix + "Atributos", LINCAR_GESTIONConsts.DbSchema);
             b.ConfigureByConvention();
 
         });
 
         builder.Entity<Observacion>(b =>
         {
-            b.ToTable("Observaciones");
+            b.ToTable(LINCAR_GESTIONConsts.DbTablePrefix + "Observaciones", LINCAR_GESTIONConsts.DbSchema);
             b.ConfigureByConvention();
         });
 
 
-        //builder.Entity<EstadoOrdenTrabajoAutoparte>(b =>
-        //{
-        //    b.ToTable("EstadoOrdenTrabajoAutoparte");
-        //    b.ConfigureByConvention();
-
-
-        //});
+        builder.Entity<EstadoOrdenTrabajoAutoparte>(b =>
+        {
+            b.ToTable(LINCAR_GESTIONConsts.DbTablePrefix + "EstadosOrdenTrabajoAutoparte", LINCAR_GESTIONConsts.DbSchema);
+            b.ConfigureByConvention();
+        });
     }
 }
