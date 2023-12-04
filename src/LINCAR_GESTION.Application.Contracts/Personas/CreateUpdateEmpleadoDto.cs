@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using LINCAR_GESTION.OrdenesTrabajoAutoparte;
-using LINCAR_GESTION.SectoresProduccion;
-using Volo.Abp.Application.Dtos;
 
 namespace LINCAR_GESTION.Personas
 {
-    public class EmpleadoDto : EntityDto<int>
+    public class CreateUpdateEmpleadoDto
     {
+        public int? Id { get; set; }
         // atributos de persona
         public string Nombre { get; set; } = "";
         public string Apellido { get; set; } = "";
@@ -19,12 +17,12 @@ namespace LINCAR_GESTION.Personas
 
         // atributos de Empleado
         public bool activo { get; set; } = true;
-   
+
         //Relación 1 a * OrdenTrabajoAutoparte
-        public ICollection<int>? OrdenesTrabajoAutoparteIds { get; set; }
+        //public ICollection<int>? OrdenesTrabajoAutoparteIds { get; set; }
         //Relacion 1 a * SectorProduccion
-        public ICollection<int>? SectorProduccionEmpleadoIds { get; set; } // Sectores de Producción en los cuales trabaja
+        //public ICollection<int>? SectorProduccionEmpleadoIds { get; set; } // Sectores de Producción en los cuales trabaja
         //Relacion 1 a * Encargado -> SectorProduccion
-        public ICollection<int>? SectoresProduccionACargoIds { get; set; } // Sectores de Produccíón de los cuales está a cargo
+        //public ICollection<int>? SectoresProduccionACargoIds { get; set; } // Sectores de Produccíón de los cuales está a cargo
     }
 }

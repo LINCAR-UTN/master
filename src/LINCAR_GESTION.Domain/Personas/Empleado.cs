@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using Volo.Abp.Domain.Entities;
 
-namespace LINCAR_GESTION.Empleados
+namespace LINCAR_GESTION.Personas
 {
     public class Empleado : Entity<int>
     {

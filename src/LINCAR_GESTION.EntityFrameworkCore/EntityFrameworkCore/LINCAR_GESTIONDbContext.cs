@@ -1,7 +1,6 @@
-﻿using System;
-using LINCAR_GESTION.Atributos;
+﻿using LINCAR_GESTION.Atributos;
 using LINCAR_GESTION.Autopartes;
-using LINCAR_GESTION.Empleados;
+using LINCAR_GESTION.EstadosOrdenProduccion;
 using LINCAR_GESTION.EstadosOrdenTrabajoAutoparte;
 using LINCAR_GESTION.ModelosProducto;
 using LINCAR_GESTION.Observaciones;
@@ -67,14 +66,17 @@ public class LINCAR_GESTIONDbContext :
 
     #region DB-Sets
     public DbSet<OrdenProduccion> OrdenesProduccion { get; set; }
+    public DbSet<EstadoOrdenProduccion> EstadosOrdenProduccion { get; set; }
     public DbSet<Cliente> Clientes { get; set; }
     public DbSet<Empleado> Empleados { get; set; }    
     public DbSet<ModeloProducto> ModelosProducto { get; set; }
     public DbSet<Autoparte> Autopartes { get; set; }
+    public DbSet<Atributo> Atributos { get; set; }
+    public DbSet<Observacion> Observaciones { get; set; }
     public DbSet<OrdenTrabajoAutoparte> OrdenesTrabajoAutoparte { get; set; }
-
-
+    public DbSet<EstadoOrdenTrabajoAutoparte> EstadosOrdenTrabajoAutoparte { get; set; }
     #endregion
+
     public LINCAR_GESTIONDbContext(DbContextOptions<LINCAR_GESTIONDbContext> options)
         : base(options)
     {
@@ -150,7 +152,12 @@ public class LINCAR_GESTIONDbContext :
             // relacion con EstadoOrdenProduccion
             b.HasMany(x => x.Estados)
                 .WithOne(x => x.OrdenProduccion);
+        });
 
+        builder.Entity<EstadoOrdenProduccion>(b =>
+        {
+            b.ToTable(LINCAR_GESTIONConsts.DbTablePrefix + "EstadosOrdenProduccion", LINCAR_GESTIONConsts.DbSchema);
+            b.ConfigureByConvention();
         });
 
         builder.Entity<Autoparte>(b =>

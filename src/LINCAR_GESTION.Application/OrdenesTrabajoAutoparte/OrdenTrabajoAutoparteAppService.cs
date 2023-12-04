@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using LINCAR_GESTION.Autopartes;
-using LINCAR_GESTION.Empleados;
 using LINCAR_GESTION.OrdenesProduccion;
+using LINCAR_GESTION.Personas;
 using Microsoft.AspNetCore.Identity;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Identity;
