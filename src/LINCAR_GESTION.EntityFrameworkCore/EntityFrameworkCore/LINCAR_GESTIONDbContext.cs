@@ -75,6 +75,7 @@ public class LINCAR_GESTIONDbContext :
     public DbSet<Observacion> Observaciones { get; set; }
     public DbSet<OrdenTrabajoAutoparte> OrdenesTrabajoAutoparte { get; set; }
     public DbSet<EstadoOrdenTrabajoAutoparte> EstadosOrdenTrabajoAutoparte { get; set; }
+    public DbSet<SectorProduccion> SectoresProduccion { get; set; }
     #endregion
 
     public LINCAR_GESTIONDbContext(DbContextOptions<LINCAR_GESTIONDbContext> options)

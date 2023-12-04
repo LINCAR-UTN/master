@@ -13,8 +13,8 @@ using Volo.Abp.EntityFrameworkCore;
 namespace LINCAR_GESTION.Migrations
 {
     [DbContext(typeof(LINCAR_GESTIONDbContext))]
-    [Migration("20231203210244_modificado_Autoparte_sectorProduccion")]
-    partial class modificado_Autoparte_sectorProduccion
+    [Migration("20231204214109_modificado_SectorProduccion")]
+    partial class modificado_SectorProduccion
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,8 +47,8 @@ namespace LINCAR_GESTION.Migrations
                     b.Property<int>("AutopartesId")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("SectoresProduccionId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("SectoresProduccionId")
+                        .HasColumnType("int");
 
                     b.HasKey("AutopartesId", "SectoresProduccionId");
 
@@ -62,8 +62,8 @@ namespace LINCAR_GESTION.Migrations
                     b.Property<int>("EmpleadosId")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("SectorProduccionEmpleadoId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("SectorProduccionEmpleadoId")
+                        .HasColumnType("int");
 
                     b.HasKey("EmpleadosId", "SectorProduccionEmpleadoId");
 
@@ -121,43 +121,6 @@ namespace LINCAR_GESTION.Migrations
                     b.ToTable("AppAutopartes", (string)null);
                 });
 
-            modelBuilder.Entity("LINCAR_GESTION.Empleados.Empleado", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Apellido")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("DNI")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("FechaHoraAlta")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("FechaHoraModificado")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NumeroTelefono")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("activo")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AppEmpleados", (string)null);
-                });
-
             modelBuilder.Entity("LINCAR_GESTION.EstadosOrdenProduccion.EstadoOrdenProduccion", b =>
                 {
                     b.Property<int>("Id")
@@ -179,7 +142,7 @@ namespace LINCAR_GESTION.Migrations
 
                     b.HasIndex("OrdenProduccionId");
 
-                    b.ToTable("EstadoOrdenProduccion");
+                    b.ToTable("AppEstadosOrdenProduccion", (string)null);
                 });
 
             modelBuilder.Entity("LINCAR_GESTION.EstadosOrdenTrabajoAutoparte.EstadoOrdenTrabajoAutoparte", b =>
@@ -527,10 +490,50 @@ namespace LINCAR_GESTION.Migrations
                     b.ToTable("AppClientes", (string)null);
                 });
 
+            modelBuilder.Entity("LINCAR_GESTION.Personas.Empleado", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Apellido")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DNI")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FechaHoraAlta")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaHoraModificado")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NumeroTelefono")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("activo")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppEmpleados", (string)null);
+                });
+
             modelBuilder.Entity("LINCAR_GESTION.SectoresProduccion.SectorProduccion", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Descripcion")
                         .IsRequired()
@@ -2314,7 +2317,7 @@ namespace LINCAR_GESTION.Migrations
 
             modelBuilder.Entity("EmpleadoSectorProduccion", b =>
                 {
-                    b.HasOne("LINCAR_GESTION.Empleados.Empleado", null)
+                    b.HasOne("LINCAR_GESTION.Personas.Empleado", null)
                         .WithMany()
                         .HasForeignKey("EmpleadosId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2402,13 +2405,13 @@ namespace LINCAR_GESTION.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LINCAR_GESTION.Empleados.Empleado", "Empleado")
+                    b.HasOne("LINCAR_GESTION.Personas.Empleado", "Empleado")
                         .WithMany("OrdenesTrabajoAutoparte")
                         .HasForeignKey("EmpleadoId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("LINCAR_GESTION.Empleados.Empleado", "Solicitante")
+                    b.HasOne("LINCAR_GESTION.Personas.Empleado", "Solicitante")
                         .WithMany()
                         .HasForeignKey("SolicitanteId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2429,7 +2432,7 @@ namespace LINCAR_GESTION.Migrations
 
             modelBuilder.Entity("LINCAR_GESTION.SectoresProduccion.SectorProduccion", b =>
                 {
-                    b.HasOne("LINCAR_GESTION.Empleados.Empleado", "Encargado")
+                    b.HasOne("LINCAR_GESTION.Personas.Empleado", "Encargado")
                         .WithMany("SectoresProduccionACargo")
                         .HasForeignKey("EncargadoId")
                         .OnDelete(DeleteBehavior.NoAction);
@@ -2588,13 +2591,6 @@ namespace LINCAR_GESTION.Migrations
                     b.Navigation("OrdenesTrabajoAutopartes");
                 });
 
-            modelBuilder.Entity("LINCAR_GESTION.Empleados.Empleado", b =>
-                {
-                    b.Navigation("OrdenesTrabajoAutoparte");
-
-                    b.Navigation("SectoresProduccionACargo");
-                });
-
             modelBuilder.Entity("LINCAR_GESTION.ModelosProducto.ModeloProducto", b =>
                 {
                     b.Navigation("OrdenesProduccion");
@@ -2619,6 +2615,13 @@ namespace LINCAR_GESTION.Migrations
             modelBuilder.Entity("LINCAR_GESTION.Personas.Cliente", b =>
                 {
                     b.Navigation("OrdenesProduccion");
+                });
+
+            modelBuilder.Entity("LINCAR_GESTION.Personas.Empleado", b =>
+                {
+                    b.Navigation("OrdenesTrabajoAutoparte");
+
+                    b.Navigation("SectoresProduccionACargo");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>

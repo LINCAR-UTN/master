@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LINCAR_GESTION.Migrations
 {
     /// <inheritdoc />
-    public partial class @new : Migration
+    public partial class modificado_SectorProduccion : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -391,7 +391,7 @@ namespace LINCAR_GESTION.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Autoparte",
+                name: "AppAutopartes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -402,11 +402,11 @@ namespace LINCAR_GESTION.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Autoparte", x => x.Id);
+                    table.PrimaryKey("PK_AppAutopartes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Cliente",
+                name: "AppClientes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -421,11 +421,30 @@ namespace LINCAR_GESTION.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cliente", x => x.Id);
+                    table.PrimaryKey("PK_AppClientes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ModeloProducto",
+                name: "AppEmpleados",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Apellido = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NumeroTelefono = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DNI = table.Column<int>(type: "int", nullable: false),
+                    FechaHoraAlta = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaHoraModificado = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    activo = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppEmpleados", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppModelosProducto",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -453,7 +472,7 @@ namespace LINCAR_GESTION.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ModeloProducto", x => x.Id);
+                    table.PrimaryKey("PK_AppModelosProducto", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -749,7 +768,7 @@ namespace LINCAR_GESTION.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Atributo",
+                name: "AppAtributos",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -760,41 +779,38 @@ namespace LINCAR_GESTION.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Atributo", x => x.Id);
+                    table.PrimaryKey("PK_AppAtributos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Atributo_Autoparte_AutoparteId",
+                        name: "FK_AppAtributos_AppAutopartes_AutoparteId",
                         column: x => x.AutoparteId,
-                        principalTable: "Autoparte",
+                        principalTable: "AppAutopartes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "AutoparteModeloProducto",
+                name: "AppSectoresProduccion",
                 columns: table => new
                 {
-                    AutopartesId = table.Column<int>(type: "int", nullable: false),
-                    ModelosProduccionId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NroSector = table.Column<int>(type: "int", nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EncargadoId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AutoparteModeloProducto", x => new { x.AutopartesId, x.ModelosProduccionId });
+                    table.PrimaryKey("PK_AppSectoresProduccion", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AutoparteModeloProducto_Autoparte_AutopartesId",
-                        column: x => x.AutopartesId,
-                        principalTable: "Autoparte",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AutoparteModeloProducto_ModeloProducto_ModelosProduccionId",
-                        column: x => x.ModelosProduccionId,
-                        principalTable: "ModeloProducto",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_AppSectoresProduccion_AppEmpleados_EncargadoId",
+                        column: x => x.EncargadoId,
+                        principalTable: "AppEmpleados",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrdenProduccion",
+                name: "AppOrdenesProduccion",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -835,17 +851,41 @@ namespace LINCAR_GESTION.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrdenProduccion", x => x.Id);
+                    table.PrimaryKey("PK_AppOrdenesProduccion", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrdenProduccion_Cliente_ClienteId",
+                        name: "FK_AppOrdenesProduccion_AppClientes_ClienteId",
                         column: x => x.ClienteId,
-                        principalTable: "Cliente",
+                        principalTable: "AppClientes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_OrdenProduccion_ModeloProducto_ModeloProductoId",
+                        name: "FK_AppOrdenesProduccion_AppModelosProducto_ModeloProductoId",
                         column: x => x.ModeloProductoId,
-                        principalTable: "ModeloProducto",
+                        principalTable: "AppModelosProducto",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AutoparteModeloProducto",
+                columns: table => new
+                {
+                    AutopartesId = table.Column<int>(type: "int", nullable: false),
+                    ModelosProduccionId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AutoparteModeloProducto", x => new { x.AutopartesId, x.ModelosProduccionId });
+                    table.ForeignKey(
+                        name: "FK_AutoparteModeloProducto_AppAutopartes_AutopartesId",
+                        column: x => x.AutopartesId,
+                        principalTable: "AppAutopartes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AutoparteModeloProducto_AppModelosProducto_ModelosProduccionId",
+                        column: x => x.ModelosProduccionId,
+                        principalTable: "AppModelosProducto",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -906,24 +946,113 @@ namespace LINCAR_GESTION.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "EstadoOrdenProduccion",
+                name: "AutoparteSectorProduccion",
+                columns: table => new
+                {
+                    AutopartesId = table.Column<int>(type: "int", nullable: false),
+                    SectoresProduccionId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AutoparteSectorProduccion", x => new { x.AutopartesId, x.SectoresProduccionId });
+                    table.ForeignKey(
+                        name: "FK_AutoparteSectorProduccion_AppAutopartes_AutopartesId",
+                        column: x => x.AutopartesId,
+                        principalTable: "AppAutopartes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AutoparteSectorProduccion_AppSectoresProduccion_SectoresProduccionId",
+                        column: x => x.SectoresProduccionId,
+                        principalTable: "AppSectoresProduccion",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmpleadoSectorProduccion",
+                columns: table => new
+                {
+                    EmpleadosId = table.Column<int>(type: "int", nullable: false),
+                    SectorProduccionEmpleadoId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmpleadoSectorProduccion", x => new { x.EmpleadosId, x.SectorProduccionEmpleadoId });
+                    table.ForeignKey(
+                        name: "FK_EmpleadoSectorProduccion_AppEmpleados_EmpleadosId",
+                        column: x => x.EmpleadosId,
+                        principalTable: "AppEmpleados",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EmpleadoSectorProduccion_AppSectoresProduccion_SectorProduccionEmpleadoId",
+                        column: x => x.SectorProduccionEmpleadoId,
+                        principalTable: "AppSectoresProduccion",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppEstadosOrdenProduccion",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<int>(type: "int", nullable: false),
                     FechaHoraHasta = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    OrdenId = table.Column<int>(type: "int", nullable: false)
+                    OrdenProduccionId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EstadoOrdenProduccion", x => x.Id);
+                    table.PrimaryKey("PK_AppEstadosOrdenProduccion", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EstadoOrdenProduccion_OrdenProduccion_OrdenId",
-                        column: x => x.OrdenId,
-                        principalTable: "OrdenProduccion",
+                        name: "FK_AppEstadosOrdenProduccion_AppOrdenesProduccion_OrdenProduccionId",
+                        column: x => x.OrdenProduccionId,
+                        principalTable: "AppOrdenesProduccion",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppOrdenesTrabajoAutoparte",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NroOrden = table.Column<int>(type: "int", nullable: false),
+                    FechaHoraCreada = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Cantidad = table.Column<int>(type: "int", nullable: false),
+                    ordenProduccionId = table.Column<int>(type: "int", nullable: true),
+                    EmpleadoId = table.Column<int>(type: "int", nullable: false),
+                    SolicitanteId = table.Column<int>(type: "int", nullable: false),
+                    AutoparteId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppOrdenesTrabajoAutoparte", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppOrdenesTrabajoAutoparte_AppAutopartes_AutoparteId",
+                        column: x => x.AutoparteId,
+                        principalTable: "AppAutopartes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppOrdenesTrabajoAutoparte_AppEmpleados_EmpleadoId",
+                        column: x => x.EmpleadoId,
+                        principalTable: "AppEmpleados",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_AppOrdenesTrabajoAutoparte_AppEmpleados_SolicitanteId",
+                        column: x => x.SolicitanteId,
+                        principalTable: "AppEmpleados",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppOrdenesTrabajoAutoparte_AppOrdenesProduccion_ordenProduccionId",
+                        column: x => x.ordenProduccionId,
+                        principalTable: "AppOrdenesProduccion",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -968,101 +1097,28 @@ namespace LINCAR_GESTION.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AutoparteSectorProduccion",
-                columns: table => new
-                {
-                    AutopartesId = table.Column<int>(type: "int", nullable: false),
-                    SectoresProduccionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AutoparteSectorProduccion", x => new { x.AutopartesId, x.SectoresProduccionId });
-                    table.ForeignKey(
-                        name: "FK_AutoparteSectorProduccion_Autoparte_AutopartesId",
-                        column: x => x.AutopartesId,
-                        principalTable: "Autoparte",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Empleado",
+                name: "AppEstadosOrdenTrabajoAutoparte",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Apellido = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NumeroTelefono = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DNI = table.Column<int>(type: "int", nullable: false),
-                    FechaHoraAlta = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FechaHoraModificado = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    activo = table.Column<bool>(type: "bit", nullable: false),
-                    SectorProduccionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Nombre = table.Column<int>(type: "int", nullable: false),
+                    FechaHoraHasta = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    OrdenTrabajoAutoparteId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Empleado", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "OrdenTrabajoAutoparte",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NroOrden = table.Column<int>(type: "int", nullable: false),
-                    FechaHoraCreada = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Cantidad = table.Column<int>(type: "int", nullable: false),
-                    ordenProduccionId = table.Column<int>(type: "int", nullable: false),
-                    EmpleadoId = table.Column<int>(type: "int", nullable: false),
-                    AutoparteId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OrdenTrabajoAutoparte", x => x.Id);
+                    table.PrimaryKey("PK_AppEstadosOrdenTrabajoAutoparte", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrdenTrabajoAutoparte_Autoparte_AutoparteId",
-                        column: x => x.AutoparteId,
-                        principalTable: "Autoparte",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_OrdenTrabajoAutoparte_Empleado_EmpleadoId",
-                        column: x => x.EmpleadoId,
-                        principalTable: "Empleado",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_OrdenTrabajoAutoparte_OrdenProduccion_ordenProduccionId",
-                        column: x => x.ordenProduccionId,
-                        principalTable: "OrdenProduccion",
+                        name: "FK_AppEstadosOrdenTrabajoAutoparte_AppOrdenesTrabajoAutoparte_OrdenTrabajoAutoparteId",
+                        column: x => x.OrdenTrabajoAutoparteId,
+                        principalTable: "AppOrdenesTrabajoAutoparte",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "SectorProduccion",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    NroSector = table.Column<int>(type: "int", nullable: false),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EncargadoId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SectorProduccion", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SectorProduccion_Empleado_EncargadoId",
-                        column: x => x.EncargadoId,
-                        principalTable: "Empleado",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Observaciones",
+                name: "AppObservaciones",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -1074,21 +1130,21 @@ namespace LINCAR_GESTION.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Observaciones", x => x.Id);
+                    table.PrimaryKey("PK_AppObservaciones", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Observaciones_Autoparte_AutoparteId",
+                        name: "FK_AppObservaciones_AppAutopartes_AutoparteId",
                         column: x => x.AutoparteId,
-                        principalTable: "Autoparte",
+                        principalTable: "AppAutopartes",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Observaciones_OrdenProduccion_OrdenProduccionId",
+                        name: "FK_AppObservaciones_AppOrdenesProduccion_OrdenProduccionId",
                         column: x => x.OrdenProduccionId,
-                        principalTable: "OrdenProduccion",
+                        principalTable: "AppOrdenesProduccion",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Observaciones_OrdenTrabajoAutoparte_OrdenTrabajoAutoparteId",
+                        name: "FK_AppObservaciones_AppOrdenesTrabajoAutoparte_OrdenTrabajoAutoparteId",
                         column: x => x.OrdenTrabajoAutoparteId,
-                        principalTable: "OrdenTrabajoAutoparte",
+                        principalTable: "AppOrdenesTrabajoAutoparte",
                         principalColumn: "Id");
                 });
 
@@ -1291,9 +1347,69 @@ namespace LINCAR_GESTION.Migrations
                 column: "UserName");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Atributo_AutoparteId",
-                table: "Atributo",
+                name: "IX_AppAtributos_AutoparteId",
+                table: "AppAtributos",
                 column: "AutoparteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppEstadosOrdenProduccion_OrdenProduccionId",
+                table: "AppEstadosOrdenProduccion",
+                column: "OrdenProduccionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppEstadosOrdenTrabajoAutoparte_OrdenTrabajoAutoparteId",
+                table: "AppEstadosOrdenTrabajoAutoparte",
+                column: "OrdenTrabajoAutoparteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppObservaciones_AutoparteId",
+                table: "AppObservaciones",
+                column: "AutoparteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppObservaciones_OrdenProduccionId",
+                table: "AppObservaciones",
+                column: "OrdenProduccionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppObservaciones_OrdenTrabajoAutoparteId",
+                table: "AppObservaciones",
+                column: "OrdenTrabajoAutoparteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppOrdenesProduccion_ClienteId",
+                table: "AppOrdenesProduccion",
+                column: "ClienteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppOrdenesProduccion_ModeloProductoId",
+                table: "AppOrdenesProduccion",
+                column: "ModeloProductoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppOrdenesTrabajoAutoparte_AutoparteId",
+                table: "AppOrdenesTrabajoAutoparte",
+                column: "AutoparteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppOrdenesTrabajoAutoparte_EmpleadoId",
+                table: "AppOrdenesTrabajoAutoparte",
+                column: "EmpleadoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppOrdenesTrabajoAutoparte_ordenProduccionId",
+                table: "AppOrdenesTrabajoAutoparte",
+                column: "ordenProduccionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppOrdenesTrabajoAutoparte_SolicitanteId",
+                table: "AppOrdenesTrabajoAutoparte",
+                column: "SolicitanteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppSectoresProduccion_EncargadoId",
+                table: "AppSectoresProduccion",
+                column: "EncargadoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AutoparteModeloProducto_ModelosProduccionId",
@@ -1306,29 +1422,9 @@ namespace LINCAR_GESTION.Migrations
                 column: "SectoresProduccionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Empleado_SectorProduccionId",
-                table: "Empleado",
-                column: "SectorProduccionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_EstadoOrdenProduccion_OrdenId",
-                table: "EstadoOrdenProduccion",
-                column: "OrdenId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Observaciones_AutoparteId",
-                table: "Observaciones",
-                column: "AutoparteId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Observaciones_OrdenProduccionId",
-                table: "Observaciones",
-                column: "OrdenProduccionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Observaciones_OrdenTrabajoAutoparteId",
-                table: "Observaciones",
-                column: "OrdenTrabajoAutoparteId");
+                name: "IX_EmpleadoSectorProduccion_SectorProduccionEmpleadoId",
+                table: "EmpleadoSectorProduccion",
+                column: "SectorProduccionEmpleadoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OpenIddictApplications_ClientId",
@@ -1359,61 +1455,11 @@ namespace LINCAR_GESTION.Migrations
                 name: "IX_OpenIddictTokens_ReferenceId",
                 table: "OpenIddictTokens",
                 column: "ReferenceId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrdenProduccion_ClienteId",
-                table: "OrdenProduccion",
-                column: "ClienteId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrdenProduccion_ModeloProductoId",
-                table: "OrdenProduccion",
-                column: "ModeloProductoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrdenTrabajoAutoparte_AutoparteId",
-                table: "OrdenTrabajoAutoparte",
-                column: "AutoparteId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrdenTrabajoAutoparte_EmpleadoId",
-                table: "OrdenTrabajoAutoparte",
-                column: "EmpleadoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrdenTrabajoAutoparte_ordenProduccionId",
-                table: "OrdenTrabajoAutoparte",
-                column: "ordenProduccionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SectorProduccion_EncargadoId",
-                table: "SectorProduccion",
-                column: "EncargadoId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_AutoparteSectorProduccion_SectorProduccion_SectoresProduccionId",
-                table: "AutoparteSectorProduccion",
-                column: "SectoresProduccionId",
-                principalTable: "SectorProduccion",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Empleado_SectorProduccion_SectorProduccionId",
-                table: "Empleado",
-                column: "SectorProduccionId",
-                principalTable: "SectorProduccion",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Empleado_SectorProduccion_SectorProduccionId",
-                table: "Empleado");
-
             migrationBuilder.DropTable(
                 name: "AbpAuditLogActions");
 
@@ -1484,7 +1530,16 @@ namespace LINCAR_GESTION.Migrations
                 name: "AbpUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Atributo");
+                name: "AppAtributos");
+
+            migrationBuilder.DropTable(
+                name: "AppEstadosOrdenProduccion");
+
+            migrationBuilder.DropTable(
+                name: "AppEstadosOrdenTrabajoAutoparte");
+
+            migrationBuilder.DropTable(
+                name: "AppObservaciones");
 
             migrationBuilder.DropTable(
                 name: "AutoparteModeloProducto");
@@ -1493,10 +1548,7 @@ namespace LINCAR_GESTION.Migrations
                 name: "AutoparteSectorProduccion");
 
             migrationBuilder.DropTable(
-                name: "EstadoOrdenProduccion");
-
-            migrationBuilder.DropTable(
-                name: "Observaciones");
+                name: "EmpleadoSectorProduccion");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictScopes");
@@ -1520,7 +1572,10 @@ namespace LINCAR_GESTION.Migrations
                 name: "AbpUsers");
 
             migrationBuilder.DropTable(
-                name: "OrdenTrabajoAutoparte");
+                name: "AppOrdenesTrabajoAutoparte");
+
+            migrationBuilder.DropTable(
+                name: "AppSectoresProduccion");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictAuthorizations");
@@ -1529,25 +1584,22 @@ namespace LINCAR_GESTION.Migrations
                 name: "AbpAuditLogs");
 
             migrationBuilder.DropTable(
-                name: "Autoparte");
+                name: "AppAutopartes");
 
             migrationBuilder.DropTable(
-                name: "OrdenProduccion");
+                name: "AppOrdenesProduccion");
+
+            migrationBuilder.DropTable(
+                name: "AppEmpleados");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictApplications");
 
             migrationBuilder.DropTable(
-                name: "Cliente");
+                name: "AppClientes");
 
             migrationBuilder.DropTable(
-                name: "ModeloProducto");
-
-            migrationBuilder.DropTable(
-                name: "SectorProduccion");
-
-            migrationBuilder.DropTable(
-                name: "Empleado");
+                name: "AppModelosProducto");
         }
     }
 }

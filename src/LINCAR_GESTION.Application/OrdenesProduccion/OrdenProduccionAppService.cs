@@ -33,15 +33,16 @@ namespace LINCAR_GESTION.OrdenesProduccion
         public async Task<OrdenProduccionDto> CreateUpdateOrdenProduccionAsync(CreateUpdateOrdenProduccionDto input)
         {
             var ordenProduccion = ObjectMapper.Map<CreateUpdateOrdenProduccionDto, OrdenProduccion>(input);
-            if (input.ClienteId != null) 
-            { 
-                var cliente = await _clienteRepository.GetAsync(input.ClienteId.Value);
-                ordenProduccion.Cliente = cliente;
-            }
             if (input.ModeloProductoId != null)
             {
                 var modeloProducto = await _modeloProductoRepository.GetAsync(input.ModeloProductoId.Value);
                 ordenProduccion.ModeloProducto = modeloProducto;
+            }
+
+            if (input.ClienteId != null) 
+            { 
+                var cliente = await _clienteRepository.GetAsync(input.ClienteId.Value);
+                ordenProduccion.Cliente = cliente;
             }
 
             if (input.Id is null)
@@ -56,6 +57,12 @@ namespace LINCAR_GESTION.OrdenesProduccion
             return ObjectMapper.Map<OrdenProduccion, OrdenProduccionDto>(ordenProduccion);
         }
 
+        //public async Task<OrdenProduccionDto> CreateOrdenProduccionBasedOnModeloProductoAsync(int modeloProductoId)
+        //{
+        //    var modeloProducto = await _modeloProductoRepository.GetAsync(modeloProductoId);
+        //    var ordenBasadaEnElModelo = ObjectMapper.Map<ModeloProducto, CreateUpdateOrdenProduccionDto>(modeloProducto);
 
+        //    CreateUpdateOrdenProduccionAsync(ordenBasadaEnElModelo);
+        //}
     }
 }
