@@ -29,6 +29,6 @@ public class LINCAR_GESTIONApplicationAutoMapperProfile : Profile
         CreateMap<CreateUpdateAutoparteDto, Autoparte>();
 
         CreateMap<OrdenTrabajoAutoparteDto, OrdenTrabajoAutoparte>().ReverseMap();
-        // CreateMap<CreateUpdateOrdenTrabajoAutoparteDto, OrdenTrabajoAutoparte>();
+        CreateMap<CreateUpdateOrdenTrabajoAutoparteDto, OrdenTrabajoAutoparte>();
     }
 }

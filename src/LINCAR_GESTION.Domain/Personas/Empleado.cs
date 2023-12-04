@@ -9,15 +9,15 @@ namespace LINCAR_GESTION.Empleados
     public class Empleado : Entity<int>
     {
         // atributos de persona
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public string NumeroTelefono { get; set; }
-        public int DNI { get; set; }
-        public DateTime FechaHoraAlta { get; set; }
-        public DateTime FechaHoraModificado { get; set; }
+        public string Nombre { get; set; } = "";
+        public string Apellido { get; set; } = "";
+        public string NumeroTelefono { get; set; } = "";
+        public int DNI { get; set; } = 0;
+        public DateTime FechaHoraAlta { get; set; } = DateTime.Now;
+        public DateTime? FechaHoraModificado { get; set; }
 
         // atributos de Empleado
-        public bool activo {  get; set; }
+        public bool activo { get; set; } = true;
 
         //Relación 1 a * OrdenTrabajoAutoparte
         public ICollection<OrdenTrabajoAutoparte>? OrdenesTrabajoAutoparte { get; set; }

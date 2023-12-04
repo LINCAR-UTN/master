@@ -15,8 +15,8 @@ namespace LINCAR_GESTION.OrdenesTrabajoAutoparte
     public class OrdenTrabajoAutoparte : Entity<int>
     {
         public int NroOrden {  get; set; }
-        public DateTime FechaHoraCreada {  get; set; }
-        public int Cantidad {  get; set; }  
+        public DateTime FechaHoraCreada {  get; set; } = DateTime.Now;
+        public int Cantidad { get; set; } = 0; 
 
         // Relación 0..1 a * OrdenProduccion
         public OrdenProduccion? ordenProduccion { get; set; }
@@ -26,6 +26,8 @@ namespace LINCAR_GESTION.OrdenesTrabajoAutoparte
 
         // Relación 0..1 a * Empleado
         public Empleado Empleado { get; set; }
+
+        // Relación 0..1 a * Solicitante
         public Empleado Solicitante { get; set; } // Encargado que solicita
 
         // Relación 1 a * Autoparte
@@ -33,6 +35,5 @@ namespace LINCAR_GESTION.OrdenesTrabajoAutoparte
 
         // Relacion 1 a * observaciones
         public ICollection<Observacion>? Observaciones { get; set; }
-
     }
 }

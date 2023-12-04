@@ -45,44 +45,7 @@ namespace LINCAR_GESTION.OrdenesProduccion
             }
 
             if (input.Id is null)
-            {
-                //var ordenProduccion = new OrdenProduccion
-                //{
-                //    NroOrden = input.NroOrden,
-                //    FechaEmision = input.FechaEmision,
-                //    FechaEntrega = input.FechaEntrega,
-                //    FechaEntregaEfectiva = input.FechaEntregaEfectiva,
-                //    DescripcionCamion = input.DescripcionCamion,
-                //    CentroRuedaCamion = input.CentroRuedaCamion,
-                //    ModeloCamion = input.ModeloCamion,
-                //    CajaVelocidadCamion = input.CajaVelocidadCamion,
-                //    AnchoChasisCamion = input.AnchoChasisCamion,
-                //    DominioCamion = input.DominioCamion,
-                //    ColorCamion = input.ColorCamion,
-                //    LargoChasisCamion = input.LargoChasisCamion,
-                //    LargoTotalMts = input.LargoTotalMts,
-                //    LargoUtilMts = input.LargoUtilMts,
-                //    AltoTotalMts = input.AltoTotalMts,
-                //    AltoUtilMts = input.AltoUtilMts,
-                //    AnchoTotalMts = input.AnchoTotalMts,
-                //    AnchoUtilMts = input.AnchoUtilMts,
-                //    EspesorPisoMms = input.EspesorPisoMms,
-                //    TipoUnidad = input.TipoUnidad,
-                //    TipoPiso = input.TipoPiso,
-                //    ColorZocalo = input.ColorZocalo,
-                //    ColorInferior = input.ColorInferior,
-                //    PuertaLateral = input.PuertaLateral,
-                //    PuertaTrasera = input.PuertaTrasera,
-                //    Malacates = input.Malacates,
-                //    Arcos = input.Arcos,
-                //    Escalera = input.Escalera,
-                //    Boquillas = input.Boquillas,
-                //    PortaEstacas = input.PortaEstacas,
-                //    Voltaje = input.Voltaje,
-                //    Cliente = cliente,
-                //    ModeloProducto = modeloProducto,
-                //};
-
+            {               
                 ordenProduccion = await _ordenProduccionRepository.InsertAsync(ordenProduccion, autoSave: true);
             }
             else
