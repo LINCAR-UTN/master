@@ -5,6 +5,7 @@ using LINCAR_GESTION.ModelosProducto;
 using LINCAR_GESTION.OrdenesProduccion;
 using LINCAR_GESTION.OrdenesTrabajoAutoparte;
 using LINCAR_GESTION.Personas;
+using LINCAR_GESTION.SectoresProduccion;
 
 namespace LINCAR_GESTION;
 
@@ -20,6 +21,8 @@ public class LINCAR_GESTIONApplicationAutoMapperProfile : Profile
         CreateMap<OrdenProduccionDto, OrdenProduccion>().ReverseMap();
         CreateMap<CreateUpdateOrdenProduccionDto, OrdenProduccion>();
 
+        //CreateMap<ModeloProducto, CreateUpdateOrdenProduccionDto>();
+
         CreateMap<ClienteDto, Cliente>().ReverseMap();
         CreateMap<CreateUpdateClienteDto, Cliente>();
 
@@ -27,7 +30,10 @@ public class LINCAR_GESTIONApplicationAutoMapperProfile : Profile
         CreateMap<CreateUpdateEmpleadoDto, Empleado>();
 
         CreateMap<ModeloProductoDto, ModeloProducto>().ReverseMap();
-        CreateMap<CreateUpdateModeloProductoDto, ModeloProducto>();
+        CreateMap<CreateUpdateModeloProductoDto, ModeloProducto>();  
+        
+        CreateMap<SectorProduccionDto, SectorProduccion>().ReverseMap();
+        CreateMap<CreateUpdateSectorProduccionDto, SectorProduccion>();
 
         CreateMap<AutoparteDto, Autoparte>().ReverseMap();
         CreateMap<CreateUpdateAutoparteDto, Autoparte>();

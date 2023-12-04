@@ -2,7 +2,6 @@
 
 using System.Threading.Tasks;
 using LINCAR_GESTION.Autopartes;
-using LINCAR_GESTION.Empleados;
 using LINCAR_GESTION.ModelosProducto;
 using LINCAR_GESTION.OrdenesProduccion;
 using LINCAR_GESTION.OrdenesTrabajoAutoparte;
