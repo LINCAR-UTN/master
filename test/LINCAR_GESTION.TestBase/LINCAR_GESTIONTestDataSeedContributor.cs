@@ -2,8 +2,10 @@
 
 using System.Threading.Tasks;
 using LINCAR_GESTION.Autopartes;
+using LINCAR_GESTION.Empleados;
 using LINCAR_GESTION.ModelosProducto;
 using LINCAR_GESTION.OrdenesProduccion;
+using LINCAR_GESTION.OrdenesTrabajoAutoparte;
 using LINCAR_GESTION.Personas;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
@@ -17,19 +19,25 @@ public class LINCAR_GESTIONTestDataSeedContributor : IDataSeedContributor, ITran
     private readonly IRepository<Cliente, int> _clienteRepository;
     private readonly IRepository<OrdenProduccion, int> _ordenProduccionRepository;
     private readonly IRepository<Autoparte, int> _autoparteRepository;
+    private readonly IRepository<OrdenTrabajoAutoparte, int> _ordenTrabajoAutoparteRepository;
+    private readonly IRepository<Empleado, int> _empleadoRepository;
 
     public LINCAR_GESTIONTestDataSeedContributor
         (
         IRepository<ModeloProducto,int> modeloProductoRepository, 
         IRepository<Cliente, int> clienteRepository, 
         IRepository<OrdenProduccion, int> ordenProduccionRepository,
-        IRepository<Autoparte, int> autoparteRepository
+        IRepository<Autoparte, int> autoparteRepository,
+        IRepository<OrdenTrabajoAutoparte, int> ordenTrabajoAutoparteRepository,
+        IRepository<Empleado, int> empleadoRepository
         )
     {
         _modeloProductoRepository = modeloProductoRepository;
         _clienteRepository = clienteRepository;
         _ordenProduccionRepository = ordenProduccionRepository;
         _autoparteRepository = autoparteRepository;
+        _ordenTrabajoAutoparteRepository = ordenTrabajoAutoparteRepository;
+        _empleadoRepository = empleadoRepository;
     }
     public async Task SeedAsync(DataSeedContext context)
     {
@@ -55,6 +63,19 @@ public class LINCAR_GESTIONTestDataSeedContributor : IDataSeedContributor, ITran
         {
             Nombre = "Aaron",
             Apellido = "Chiappella"
+        });
+
+        Empleado empleado1 = await _empleadoRepository.InsertAsync(new Empleado
+        {
+            Nombre = "Juan",
+            Apellido = "Basgall"
+
+        });
+
+        Empleado empleado2 = await _empleadoRepository.InsertAsync(new Empleado
+        {
+            Nombre = "Facundo",
+            Apellido = "Dun"
         });
 
         // añadir OrdenesProduccion
@@ -89,6 +110,26 @@ public class LINCAR_GESTIONTestDataSeedContributor : IDataSeedContributor, ITran
         {
             CodAutoparte = 215,
             Nombre = "Autoparte de dataSeed 2"
+        });
+
+        OrdenTrabajoAutoparte ordenTrabajoAutoparte1 = await _ordenTrabajoAutoparteRepository.InsertAsync(new OrdenTrabajoAutoparte
+        {
+            NroOrden = 211,
+            Cantidad = 3,
+            Empleado = empleado1,
+            Solicitante = empleado2,
+            Autoparte = autoparte1,
+            ordenProduccion = ordenProduccion1
+        });
+
+        OrdenTrabajoAutoparte ordenTrabajoAutoparte2 = await _ordenTrabajoAutoparteRepository.InsertAsync(new OrdenTrabajoAutoparte
+        {
+            NroOrden = 11,
+            Cantidad = 5,
+            Empleado = empleado2,
+            Solicitante = empleado1,
+            Autoparte = autoparte2,
+            ordenProduccion = ordenProduccion2
         });
     }
 }

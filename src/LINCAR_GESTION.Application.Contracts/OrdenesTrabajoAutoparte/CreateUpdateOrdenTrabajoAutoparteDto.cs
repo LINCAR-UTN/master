@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using LINCAR_GESTION.Autopartes;
-using LINCAR_GESTION.EstadosOrdenTrabajoAutoparte;
-using LINCAR_GESTION.Observaciones;
-using Volo.Abp.Application.Dtos;
 
 namespace LINCAR_GESTION.OrdenesTrabajoAutoparte
 {
-    public class OrdenTrabajoAutoparteDto : EntityDto<int>
+    public class CreateUpdateOrdenTrabajoAutoparteDto
     {
+        public int? Id { get; set; }
         public int NroOrden { get; set; }
         public DateTime FechaHoraCreada { get; set; }
         public int Cantidad { get; set; }
@@ -18,18 +15,18 @@ namespace LINCAR_GESTION.OrdenesTrabajoAutoparte
         public int? ordenProduccionId { get; set; }
 
         // Relación * a * EstadosOrdenTrabajoAutoparte
-        public ICollection<EstadoOrdenTrabajoAutoparteDto>? Estados { get; set; }
+        // public ICollection<EstadoOrdenTrabajoAutoparteDto>? Estados { get; set; }
 
         // Relación 0..1 a * Empleado
-        public int EmpleadoId { get; set; }
+        public int EmpleadoId { get; set; } = 0;
 
         // Relación 0..1 a * Solicitante
-        public int SolicitanteId { get; set; } // Encargado que solicita
+        public int SolicitanteId { get; set; } = 0; // Encargado que solicita
 
         // Relación 1 a * Autoparte
-        public AutoparteDto Autoparte { get; set; }
+        public int AutoparteId { get; set; } = 0;
 
         // Relacion 1 a * observaciones
-        public ICollection<ObservacionDto>? Observaciones { get; set; }
+        // public ICollection<ObservacionDto>? Observaciones { get; set; }
     }
 }
