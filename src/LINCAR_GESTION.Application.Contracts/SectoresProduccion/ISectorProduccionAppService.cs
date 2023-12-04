@@ -9,5 +9,6 @@ namespace LINCAR_GESTION.SectoresProduccion
     public interface ISectorProduccionAppService : IApplicationService
     {
         Task<SectorProduccionDto> CreateUpdateSectorProduccionAsync(CreateUpdateSectorProduccionDto input);
+        Task<ICollection<SectorProduccionDto>> GetSectoresProduccionAsync();
     }
 }
