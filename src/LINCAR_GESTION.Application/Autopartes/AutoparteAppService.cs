@@ -35,9 +35,9 @@ namespace LINCAR_GESTION.Autopartes
 
         public async Task<ICollection<AutoparteDto>> GetAutopartesAsync()
         {
-            var themes = await _autoparteRepository.GetListAsync(includeDetails: true);
+            var autopartes = await _autoparteRepository.GetListAsync(includeDetails: true);
 
-            return ObjectMapper.Map<ICollection<Autoparte>, ICollection<AutoparteDto>>(themes);
+            return ObjectMapper.Map<ICollection<Autoparte>, ICollection<AutoparteDto>>(autopartes);
         }
     }
 }

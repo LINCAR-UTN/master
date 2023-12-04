@@ -24,16 +24,16 @@ namespace LINCAR_GESTION.SectoresProduccion
             _unitOfWorkManager = GetRequiredService<IUnitOfWorkManager>();
         }
 
-        //[Fact]
-        //public async Task Should_Get_All_SectorProduccions()
-        //{
-        //    //Act
-        //    var sectorProduccions = await _sectorProduccionAppService.GetSectorProduccionsAsync();
+        [Fact]
+        public async Task Should_Get_All_SectoresProduccion()
+        {
+            //Act
+            var sectoresProduccion = await _sectorProduccionAppService.GetSectoresProduccionAsync();
 
-        //    //Assert
-        //    sectorProduccions.ShouldNotBeNull();
-        //    sectorProduccions.Count.ShouldBeGreaterThan(1);
-        //}
+            //Assert
+            sectoresProduccion.ShouldNotBeNull();
+            sectoresProduccion.Count.ShouldBeGreaterThan(1);
+        }
 
         [Fact]
         public async Task Should_Create_SectorProduccion()

@@ -15,6 +15,13 @@ namespace LINCAR_GESTION.SectoresProduccion
             _sectorProduccionRepository = sectorProduccionRepository;
         }
 
+        public async Task<ICollection<SectorProduccionDto>> GetSectoresProduccionAsync()
+        {
+            var sectoresProduccion = await _sectorProduccionRepository.GetListAsync(includeDetails: true);
+
+            return ObjectMapper.Map<ICollection<SectorProduccion>, ICollection<SectorProduccionDto>>(sectoresProduccion);
+        }
+
         public async Task<SectorProduccionDto> CreateUpdateSectorProduccionAsync(CreateUpdateSectorProduccionDto input)
         {
             var sectorProduccion = ObjectMapper.Map<CreateUpdateSectorProduccionDto, SectorProduccion>(input);
