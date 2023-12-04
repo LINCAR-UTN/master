@@ -1,13 +1,10 @@
 ﻿using LINCAR_GESTION.Autopartes;
-using LINCAR_GESTION.Empleados;
 using LINCAR_GESTION.EstadosOrdenTrabajoAutoparte;
 using LINCAR_GESTION.Observaciones;
 using LINCAR_GESTION.OrdenesProduccion;
+using LINCAR_GESTION.Personas;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Volo.Abp.Domain.Entities;
 
 namespace LINCAR_GESTION.OrdenesTrabajoAutoparte

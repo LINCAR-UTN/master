@@ -1,10 +1,7 @@
 ﻿using LINCAR_GESTION.Autopartes;
-using LINCAR_GESTION.Empleados;
+using LINCAR_GESTION.Personas;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Volo.Abp.Domain.Entities;
 
 namespace LINCAR_GESTION.SectoresProduccion

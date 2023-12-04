@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using LINCAR_GESTION.Autopartes;
-using LINCAR_GESTION.Empleados;
+﻿using System.Collections.Generic;
 using Volo.Abp.Application.Dtos;
 
 namespace LINCAR_GESTION.SectoresProduccion
