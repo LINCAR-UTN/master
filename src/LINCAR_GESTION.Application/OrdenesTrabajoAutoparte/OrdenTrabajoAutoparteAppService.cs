@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using LINCAR_GESTION.Autopartes;
 using LINCAR_GESTION.OrdenesProduccion;
 using LINCAR_GESTION.Personas;
@@ -31,6 +32,20 @@ namespace LINCAR_GESTION.OrdenesTrabajoAutoparte
             _empleadoRepository = empleadoRepository;
             _ordenProduccionRepository = ordenProduccionRepository;
             //_userManager = userManager;
+        }
+
+        public async Task<ICollection<OrdenTrabajoAutoparteDto>> GetAllOrdenesTrabajoAutoparteAsync()
+        {
+            var themes = await _ordenTrabajoAutoparteRepository.GetListAsync(includeDetails: true);
+
+            return ObjectMapper.Map<ICollection<OrdenTrabajoAutoparte>, ICollection<OrdenTrabajoAutoparteDto>>(themes);
+        }
+
+        public async Task<ICollection<OrdenTrabajoAutoparteDto>> GetOrdenesTrabajoAutoparteAsignadasAUnEmpleadoAsync(int empleadoId)
+        {
+            var themes = await _ordenTrabajoAutoparteRepository.GetListAsync(o => o.Empleado.Id == empleadoId, includeDetails: true);
+
+            return ObjectMapper.Map<ICollection<OrdenTrabajoAutoparte>, ICollection<OrdenTrabajoAutoparteDto>>(themes);
         }
 
         public async Task<OrdenTrabajoAutoparteDto> CreateUpdateOrdenTrabajoAutoparteAsync(CreateUpdateOrdenTrabajoAutoparteDto input)
