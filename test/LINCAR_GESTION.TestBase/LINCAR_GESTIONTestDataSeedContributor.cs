@@ -6,6 +6,7 @@ using LINCAR_GESTION.ModelosProducto;
 using LINCAR_GESTION.OrdenesProduccion;
 using LINCAR_GESTION.OrdenesTrabajoAutoparte;
 using LINCAR_GESTION.Personas;
+using LINCAR_GESTION.SectoresProduccion;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Repositories;
@@ -20,6 +21,7 @@ public class LINCAR_GESTIONTestDataSeedContributor : IDataSeedContributor, ITran
     private readonly IRepository<Autoparte, int> _autoparteRepository;
     private readonly IRepository<OrdenTrabajoAutoparte, int> _ordenTrabajoAutoparteRepository;
     private readonly IRepository<Empleado, int> _empleadoRepository;
+    private readonly IRepository<SectorProduccion, int> _sectorProduccionRepository;
 
     public LINCAR_GESTIONTestDataSeedContributor
         (
@@ -28,7 +30,8 @@ public class LINCAR_GESTIONTestDataSeedContributor : IDataSeedContributor, ITran
         IRepository<OrdenProduccion, int> ordenProduccionRepository,
         IRepository<Autoparte, int> autoparteRepository,
         IRepository<OrdenTrabajoAutoparte, int> ordenTrabajoAutoparteRepository,
-        IRepository<Empleado, int> empleadoRepository
+        IRepository<Empleado, int> empleadoRepository,
+        IRepository<SectorProduccion, int> sectorProduccionRepository
         )
     {
         _modeloProductoRepository = modeloProductoRepository;
@@ -37,6 +40,7 @@ public class LINCAR_GESTIONTestDataSeedContributor : IDataSeedContributor, ITran
         _autoparteRepository = autoparteRepository;
         _ordenTrabajoAutoparteRepository = ordenTrabajoAutoparteRepository;
         _empleadoRepository = empleadoRepository;
+        _sectorProduccionRepository = sectorProduccionRepository;
     }
     public async Task SeedAsync(DataSeedContext context)
     {
@@ -129,6 +133,20 @@ public class LINCAR_GESTIONTestDataSeedContributor : IDataSeedContributor, ITran
             Solicitante = empleado1,
             Autoparte = autoparte2,
             ordenProduccion = ordenProduccion2
+        }); 
+        
+        SectorProduccion sectorProduccion1 = await _sectorProduccionRepository.InsertAsync(new SectorProduccion
+        {
+            NroSector = 1,
+            Nombre = "Primer SectorProduccion",
+            Encargado = empleado1
+        });
+
+        SectorProduccion sectorProduccion2 = await _sectorProduccionRepository.InsertAsync(new SectorProduccion
+        {
+            NroSector = 1,
+            Nombre = "Segundo SectorProduccion",
+            Encargado = empleado1
         });
     }
 }
