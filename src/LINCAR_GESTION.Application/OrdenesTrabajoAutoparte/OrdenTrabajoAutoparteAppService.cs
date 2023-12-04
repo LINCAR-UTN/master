@@ -36,16 +36,16 @@ namespace LINCAR_GESTION.OrdenesTrabajoAutoparte
 
         public async Task<ICollection<OrdenTrabajoAutoparteDto>> GetAllOrdenesTrabajoAutoparteAsync()
         {
-            var themes = await _ordenTrabajoAutoparteRepository.GetListAsync(includeDetails: true);
+            var ordenesTrabajoAutoparte = await _ordenTrabajoAutoparteRepository.GetListAsync(includeDetails: true);
 
-            return ObjectMapper.Map<ICollection<OrdenTrabajoAutoparte>, ICollection<OrdenTrabajoAutoparteDto>>(themes);
+            return ObjectMapper.Map<ICollection<OrdenTrabajoAutoparte>, ICollection<OrdenTrabajoAutoparteDto>>(ordenesTrabajoAutoparte);
         }
 
         public async Task<ICollection<OrdenTrabajoAutoparteDto>> GetOrdenesTrabajoAutoparteAsignadasAUnEmpleadoAsync(int empleadoId)
         {
-            var themes = await _ordenTrabajoAutoparteRepository.GetListAsync(o => o.Empleado.Id == empleadoId, includeDetails: true);
+            var ordenesTrabajoAutoparte = await _ordenTrabajoAutoparteRepository.GetListAsync(o => o.Empleado.Id == empleadoId, includeDetails: true);
 
-            return ObjectMapper.Map<ICollection<OrdenTrabajoAutoparte>, ICollection<OrdenTrabajoAutoparteDto>>(themes);
+            return ObjectMapper.Map<ICollection<OrdenTrabajoAutoparte>, ICollection<OrdenTrabajoAutoparteDto>>(ordenesTrabajoAutoparte);
         }
 
         public async Task<OrdenTrabajoAutoparteDto> CreateUpdateOrdenTrabajoAutoparteAsync(CreateUpdateOrdenTrabajoAutoparteDto input)
