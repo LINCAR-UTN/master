@@ -48,6 +48,13 @@ namespace LINCAR_GESTION.OrdenesTrabajoAutoparte
             return ObjectMapper.Map<ICollection<OrdenTrabajoAutoparte>, ICollection<OrdenTrabajoAutoparteDto>>(ordenesTrabajoAutoparte);
         }
 
+        public async Task<OrdenTrabajoAutoparteDto> GetOrdenTrabajoAutoparteAsync(int id)
+        {
+            var ordenTrabajoAutoparte = await _ordenTrabajoAutoparteRepository.GetAsync(id, includeDetails: true);
+
+            return ObjectMapper.Map<OrdenTrabajoAutoparte, OrdenTrabajoAutoparteDto>(ordenTrabajoAutoparte);
+        }
+
         public async Task<OrdenTrabajoAutoparteDto> CreateUpdateOrdenTrabajoAutoparteAsync(CreateUpdateOrdenTrabajoAutoparteDto input)
         {
             var ordenTrabajoAutoparte = ObjectMapper.Map<CreateUpdateOrdenTrabajoAutoparteDto, OrdenTrabajoAutoparte>(input);
@@ -71,7 +78,6 @@ namespace LINCAR_GESTION.OrdenesTrabajoAutoparte
                 var ordenProduccion = await _ordenProduccionRepository.GetAsync(input.ordenProduccionId.Value);
                 ordenTrabajoAutoparte.ordenProduccion = ordenProduccion;
             }
-
 
             if (input.Id is null)
             {
