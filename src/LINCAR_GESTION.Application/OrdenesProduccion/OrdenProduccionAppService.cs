@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using LINCAR_GESTION.EstadosOrdenProduccion;
 using LINCAR_GESTION.ModelosProducto;
 using LINCAR_GESTION.Personas;
 using Microsoft.AspNetCore.Identity;
@@ -30,6 +33,27 @@ namespace LINCAR_GESTION.OrdenesProduccion
             //_userManager = userManager;
         }
 
+        public async Task<ICollection<OrdenProduccionDto>> GetAllOrdenesTrabajoAutoparteAsync()
+        {
+            var ordenesProduccion = await _ordenProduccionRepository.GetListAsync(includeDetails: true);
+
+            return ObjectMapper.Map<ICollection<OrdenProduccion>, ICollection<OrdenProduccionDto>>(ordenesProduccion);
+        }
+
+        public async Task<OrdenProduccionDto> GetOrdenProduccionAsync(int id)
+        {
+            var ordenProduccion = await _ordenProduccionRepository.GetAsync(id, includeDetails: true);
+
+            return ObjectMapper.Map<OrdenProduccion, OrdenProduccionDto>(ordenProduccion);
+        }
+
+        public async Task<ICollection<OrdenProduccionDto>> GetOrdenesTrabajoAutopartePorEstadoActualAsync(EstadoOrdenProduccion estado)
+        {
+            var ordenesProduccion = await _ordenProduccionRepository.GetListAsync(op => op.Estados.Last() == estado, includeDetails: true);
+
+            return ObjectMapper.Map<ICollection<OrdenProduccion>, ICollection<OrdenProduccionDto>>(ordenesProduccion);
+        }
+
         public async Task<OrdenProduccionDto> CreateUpdateOrdenProduccionAsync(CreateUpdateOrdenProduccionDto input)
         {
             var ordenProduccion = ObjectMapper.Map<CreateUpdateOrdenProduccionDto, OrdenProduccion>(input);
@@ -39,14 +63,14 @@ namespace LINCAR_GESTION.OrdenesProduccion
                 ordenProduccion.ModeloProducto = modeloProducto;
             }
 
-            if (input.ClienteId != null) 
-            { 
+            if (input.ClienteId != null)
+            {
                 var cliente = await _clienteRepository.GetAsync(input.ClienteId.Value);
                 ordenProduccion.Cliente = cliente;
             }
 
             if (input.Id is null)
-            {               
+            {
                 ordenProduccion = await _ordenProduccionRepository.InsertAsync(ordenProduccion, autoSave: true);
             }
             else
