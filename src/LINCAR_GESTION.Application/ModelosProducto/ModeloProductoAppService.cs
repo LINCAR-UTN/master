@@ -35,9 +35,9 @@ namespace LINCAR_GESTION.ModelosProducto
 
         public async Task<ICollection<ModeloProductoDto>> GetModelosProductoAsync()
         {
-            var themes = await _modeloProductoRepository.GetListAsync(includeDetails: true);
+            var modelosProducto = await _modeloProductoRepository.GetListAsync(includeDetails: true);
 
-            return ObjectMapper.Map<ICollection<ModeloProducto>, ICollection<ModeloProductoDto>>(themes);
+            return ObjectMapper.Map<ICollection<ModeloProducto>, ICollection<ModeloProductoDto>>(modelosProducto);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using LINCAR_GESTION.Autopartes;
 using LINCAR_GESTION.OrdenesProduccion;
 using LINCAR_GESTION.Personas;
@@ -33,6 +34,27 @@ namespace LINCAR_GESTION.OrdenesTrabajoAutoparte
             //_userManager = userManager;
         }
 
+        public async Task<ICollection<OrdenTrabajoAutoparteDto>> GetAllOrdenesTrabajoAutoparteAsync()
+        {
+            var ordenesTrabajoAutoparte = await _ordenTrabajoAutoparteRepository.GetListAsync(includeDetails: true);
+
+            return ObjectMapper.Map<ICollection<OrdenTrabajoAutoparte>, ICollection<OrdenTrabajoAutoparteDto>>(ordenesTrabajoAutoparte);
+        }
+
+        public async Task<ICollection<OrdenTrabajoAutoparteDto>> GetOrdenesTrabajoAutoparteAsignadasAUnEmpleadoAsync(int empleadoId)
+        {
+            var ordenesTrabajoAutoparte = await _ordenTrabajoAutoparteRepository.GetListAsync(o => o.Empleado.Id == empleadoId, includeDetails: true);
+
+            return ObjectMapper.Map<ICollection<OrdenTrabajoAutoparte>, ICollection<OrdenTrabajoAutoparteDto>>(ordenesTrabajoAutoparte);
+        }
+
+        public async Task<OrdenTrabajoAutoparteDto> GetOrdenTrabajoAutoparteAsync(int id)
+        {
+            var ordenTrabajoAutoparte = await _ordenTrabajoAutoparteRepository.GetAsync(id, includeDetails: true);
+
+            return ObjectMapper.Map<OrdenTrabajoAutoparte, OrdenTrabajoAutoparteDto>(ordenTrabajoAutoparte);
+        }
+
         public async Task<OrdenTrabajoAutoparteDto> CreateUpdateOrdenTrabajoAutoparteAsync(CreateUpdateOrdenTrabajoAutoparteDto input)
         {
             var ordenTrabajoAutoparte = ObjectMapper.Map<CreateUpdateOrdenTrabajoAutoparteDto, OrdenTrabajoAutoparte>(input);
@@ -56,7 +78,6 @@ namespace LINCAR_GESTION.OrdenesTrabajoAutoparte
                 var ordenProduccion = await _ordenProduccionRepository.GetAsync(input.ordenProduccionId.Value);
                 ordenTrabajoAutoparte.ordenProduccion = ordenProduccion;
             }
-
 
             if (input.Id is null)
             {
